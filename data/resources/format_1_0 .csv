@@ -1,0 +1,4 @@
+Feature,Case id,Check points,Notes,Pass,Fail,N/A
+My feature name,TestCase name 1,Test steps,Passing test,1,,
+My feature name,TestCase name 2,Test steps,Failing test,,1,
+My feature name,TestCase name 3,Test steps,Blocking test,,,1

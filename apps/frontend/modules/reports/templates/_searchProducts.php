@@ -1,0 +1,1 @@
+<?php echo $formProduct["product"]->render(array('class' => 'version')); ?>

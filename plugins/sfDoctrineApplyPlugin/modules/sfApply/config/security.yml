@@ -1,0 +1,5 @@
+# This was true in 1.1 for some reason, which defeats the purpose, sorry about that
+
+default:
+  is_secure: false
+  

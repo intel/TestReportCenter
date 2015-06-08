@@ -1,0 +1,79 @@
+# You can find more information about this file on the symfony website:30
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+all:
+  project_name: Test Report Center (TRC)
+  # Set application's project group
+  # /!\ Must match entry in database @see table sfGuardGroup
+  project_group: Project Name
+
+  wats_url: http://cats-tech.otcqa.jf.intel.com/wats/
+  documentation_url: https://opensource.intel.com/how-to/quality-assurance/tools/test-report-center
+  submit_idea_url: https://jira01.devtools.intel.com/browse/OTCIS/component/15011
+  bug_complementary_tool: https://jira01.devtools.intel.com/browse/
+
+  # Set default permission and security level for users created from registration form
+  permission_new_user:     User
+  security_level_new_user: 0    # public
+
+  # Set databases names of qa_generic and qa_core (same than in databases.yml)
+  table_qa_generic: qa_generic
+  table_qa_core:    qa_core
+
+  # Define if build id is mandatory or not
+  mandatory_build_id: false
+
+  # Define if test set is mandatory or not
+  mandatory_testset: false
+
+  # Allow creation of reports for a new test environment and image when there is no matching entries in REST API
+  rest_configuration_creation: false
+
+  # Set limit file attachment size
+  max_file_size: 20000000
+
+  # Administrator's email address
+  admin_contact: ADMIN EMAIL
+
+  ## Default barcharts (e.g. 'StackedBar', 'Line')
+  # Barcharts from product/environment/image views
+  barchart_global_history: StackedBar
+  # Barcharts from test results summary in reports
+  barchart_report_summary: StackedBar
+
+  views:
+    # Filter for homepage to display "recent" sessions
+    filter_period:                   2592000    # 30 days in seconds
+
+    # Number of histograms displayed in product/environment/image views
+    number_of_histograms:            20
+    # Number of histograms displayed in sessions in addition of current session's histogram
+    number_of_histograms_in_session: 2
+    # Limit number of sessions in image views
+    number_of_sessions_in_images: 20
+    # Limit number of sessions in product and environment views
+    number_of_sessions_in_other_views: 5
+
+  authentication:
+    # Choose between "symfony" and "ldap" methods to authenticate users
+    method: symfony
+
+  # sfGuardPlugin configuration
+  sf_guard_plugin:
+    remember_key_expiration_age: 1296000    # 15 days in seconds
+    remember_cookie_name:        qarpt-remember-cookie
+    allow_login_with_email:      true
+
+  # sfApplyPlugin configuration
+  sfApplyPlugin:
+    from:
+      email: "noreply@linux.intel.com"
+      fullname: "TestReportCenter"
+
+  # LDAP configuration
+  ldap:
+   host: corpad.intel.com
+   port: 3268
+   username:
+   password:
+   baseuser: dc=corp,dc=intel,dc=com

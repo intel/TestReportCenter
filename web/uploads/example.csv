@@ -1,0 +1,47 @@
+Feature,Check points,Notes (bugs),Pass,Fail,N/A
+Create Image,Create image with MIC2,,1,,
+System startup,Image boot from SD card,,1,,
+Home screen,"Check if core applications* (Dialer, SMS, fennec browser, photo viewer, audio player, video player, contacts, email, Terminal) can be launched from app-launcher","Bug 5850 - It takes long time to launch core applications at the first time.
+Bug 6044 - [SMS] Fails to launch Most of the time
+Bug 3551 - xterm doesn't launch correctly and doesn't work
+Bug 4021 - N900: Unable launch Browser
+Bug 5292 - N900: Music player missing",,1,
+Home screen,Switch between different applications,,1,,
+Home screen,Check home screen theme and layout,"Bug 6482 - Default theme is missing in home and app-launcher screen.
+Bug 5995 - Settings and Mail applications are missing in application menu in landscape mode.
+Bug 5997 - The bottom row applications' icons are not fully displayed in portrait mode.
+Bug 3921 - [REG] Some buttons (App-launcher, Home, Close) and app icons (Settings/Lock icons) are rendered as red blocks",,1,
+Home screen,Display orientation detection,,1,,
+Fennec browser,"Browsing website over wifi (WEP secured by default, WPA is WEP is not testable)",Bug 4021 - N900: Unable launch Browser ,,1,
+Fennec browser,Browsing website over 3G (WCDMA),Not support in meego 1.1 release.,,,1
+Fennec browser,Browser gesture support,Bug 4021 - N900: Unable launch Browser ,,1,
+Dialer,"Dial one outgoing call, accept by other party, terminate this call (phonesim, GSM & WCDMA) (GSM and WCDMA cannot be covered until real modem supported,Will use phonesim to test before real modem support)",Only Dialer application launching. SIM function is not implemented yet.,1,,
+Dialer,Display PhoneBook,,1,,
+Dialer,Check call history,"Only can check call out history. 
+",1,,
+SMS,"Send SMS ( phonesim, 2G & 3G ) (2G and 3G cannot be covered until real modem supported,Will use phonesim to test before real modem support)","SMS application can be launched and SMS can be composed, SIM function is not implemented to test send/receive message function.",1,,
+SMS,"Check message history (received, sent, draft)",Bug 3670 - [SMS] The SMS history fail to show.,,1,
+Connectivity,"Scan wifi, check wifi connection (open/wep/wpa) and disconnection",Bug 6488 - Missing plugin in Settings.,,1,
+Connectivity,Browse website and download some files through wifi,Bug 4021 - N900: Unable launch Browser ,,1,
+Connectivity,Check bluetooth connection (pairing and connect to bluetooth handset),Bug 6488 - Missing plugin in Settings.,,1,
+Connectivity,"Connect device to computer with usb cable, check the usb mass storage device is detected by computer",Bug 4049 - Unable to detect USB device after plugging it in computer ,,1,
+Connectivity,Check sshd connection: connect board using usb gadget,"SSH connection can be established only if usb cable is connected before device boot up.
+Bug 5031 - ssh authentication fails over usb network",,1,
+Run time status/Settings/Control Panel,Check if runtime status are correct on tiny toolbar/runtime status panel,Bug 5301 - Runtime status not shown on toolbar,,1,
+Virtual keyboard,"Check if virtual keyboard can be launched automatically with apps which need input text field (fennec, SMS)",Bug 6489 - Fail to launch VKB.,,1,
+Virtual keyboard,Support text input,Bug 6489 - Fail to launch VKB.,,1,
+Photo viewer,"Check if the UI is correct (top bar, menu, button, etc.)",,1,,
+Photo viewer,Check if photo thumbnail index works,Bug 6392 - No thumbnails index function in Photos application.,,1,
+Photo viewer,Check if photo could be played,"Bug 6382 - Photos application crashes when sliding an image to view next one.
+Bug 6384 - Some of images are not displayed properly in full screen.",,1,
+Audio,"Check if the UI is correct (top bar, menu, button, play queue etc.)",Bug 5292- N900: Music player missing,,1,
+Audio,"Check if music could be played (WAV, AAC & MP3 format ) on loudspeaker (play music by command line if audio player is not ready. aplay to play music file)",Bug 5292- N900: Music player missing,,1,
+Video,"Check if the UI is correct (top bar, menu, button, play queue etc.)",,1,,
+Video,Check if video thumbnail index works,,1,,
+Video,"Check if video could be played (MP4, WMV & 3GP-H264)",Bug 5419- Video clip playback failed.,,1,
+Contacts,"Check if it works with dialer, SMS",,1,,
+Security & Power,Check PIN activation/deactivation (Need GUI support),,,,1
+Security & Power,PIN requested at boot,,,,1
+Security & Power,Power Off / Power On,Bug 4048- Not able to shut down the Device(N900) via power button.,,1,
+Touchscreen,Use touch screen to operate the system,Bug 4985 - [REG][CDK] touchscreen calibration issue,,1,
+Installation ,Use zypper to install a package ,Blocked by Bug 6488 - Missing plugin in Settings.,,,1

@@ -1,0 +1,27 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           Configuration
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          configuration
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        title: Configurations list
+        display: [id, _project_group, _project_to_product_id, _test_environment_id, _image_id]
+        max_per_page: 30
+      filter:
+        display: [id, project_to_product_id, test_environment_id, image_id]
+      form:    ~
+      edit:
+        title: Editing configuration "%%id%%"
+      new:
+        title: Adding a new configuration

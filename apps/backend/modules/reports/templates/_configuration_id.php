@@ -1,0 +1,1 @@
+<a href="<?php echo url_for("edit_configuration", array("id" => $test_session->getConfigurationId())); ?>"><?php echo Doctrine_Core::getTable("Configuration")->findOneById($test_session->getConfigurationId())->getId(); ?></a>

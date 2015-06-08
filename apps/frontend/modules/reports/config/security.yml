@@ -1,0 +1,14 @@
+add:
+  is_secure: true
+
+edit:
+  is_secure: true
+
+delete:
+  is_secure: true
+
+updateEnvironment:
+  is_secure: true
+
+updateImage:
+  is_secure: true

@@ -1,0 +1,1 @@
+<a href="<?php echo url_for("edit_user", array("id" => $project->getUserId())); ?>"><?php echo Doctrine_Core::getTable("sfGuardUser")->findOneById($project->getUserId())->getUsername(); ?></a>

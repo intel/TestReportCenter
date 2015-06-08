@@ -1,0 +1,495 @@
+# Populate this file with data to be loaded by your ORM's *:data-load task.
+# You can create multiple files in this directory (i.e. 010_users.yml,
+# 020_articles.yml, etc) which will be loaded in alphabetical order.
+#
+# See documentation for your ORM's *:data-load task for more information.
+
+<?php
+// Generate pseudo random datas for testing purpose (can take a while)
+$loadTestData = false;
+
+$projectGroup = array(
+    "name"          => "Project Name",
+    "description"   => "Project Group description");
+
+$productTypes = array(
+    array(
+        "id"            => "1",
+        "name"          => "Alpha",
+        "description"   => "",
+        "slug"          => "alpha"),
+    array(
+        "id"            => "2",
+        "name"          => "Beta",
+        "description"   => "",
+        "slug"          => "beta"),
+    array(
+        "id"            => "3",
+        "name"          => "Gamma",
+        "description"   => "",
+        "slug"          => "gamma"),
+    array(
+        "id"            => "4",
+        "name"          => "Delta",
+        "description"   => "",
+        "slug"          => "delta"),
+    array(
+        "id"            => "5",
+        "name"          => "Epsilon",
+        "description"   => "",
+        "slug"          => "epsilon")
+);
+
+$complementaryTools = array(
+    array(
+        "name"          => "Enterprise Tester",
+        "version"       => "",
+        "description"   => "",
+        "link"          => "http://enterprisetester.sh.intel.com/"),
+    array(
+        "name"          => "JIRA",
+        "version"       => "",
+        "description"   => "",
+        "link"          => "http://jira-tech.otcqa.jf.intel.com/")
+);
+
+$projects = array(
+    array(
+        "id"                => "1",
+        "name"              => "One",
+        "description"       => "",
+        "status"            => "1",
+        "security_level"    => "0",
+        "slug"              => "one"),
+    array(
+        "id"                => "2",
+        "name"              => "Two",
+        "description"       => "",
+        "status"            => "1",
+        "security_level"    => "0",
+        "slug"              => "two")
+);
+
+if($loadTestData == true)
+{
+    $projectToProducts = array();
+
+    $configurations = array();
+
+    $environments = array(
+        array(
+            "id"                => "1",
+            "name"              => "Asgard",
+            "description"       => "",
+            "cpu"               => "",
+            "board"             => "",
+            "gpu"               => "",
+            "other_hardware"    => "",
+            "name_slug"         => "asgard"),
+        array(
+            "id"                => "2",
+            "name"              => "Midgard",
+            "description"       => "",
+            "cpu"               => "",
+            "board"             => "",
+            "gpu"               => "",
+            "other_hardware"    => "",
+            "name_slug"         => "midgard"),
+        array(
+            "id"                => "3",
+            "name"              => "Niflheim",
+            "description"       => "",
+            "cpu"               => "",
+            "board"             => "",
+            "gpu"               => "",
+            "other_hardware"    => "",
+            "name_slug"         => "niflheim"),
+        array(
+            "id"                => "4",
+            "name"              => "Nibelheim",
+            "description"       => "",
+            "cpu"               => "",
+            "board"             => "",
+            "gpu"               => "",
+            "other_hardware"    => "",
+            "name_slug"         => "nibelheim")
+    );
+
+    $images = array(
+        array(
+            "id" => "1",
+            "name" => "Loge",
+            "description" => "",
+            "os" => "",
+            "distribution" => "",
+            "version" => "",
+            "kernel" => "",
+            "architecture" => "",
+            "other_fw" => "",
+            "binary_link" => "",
+            "source_link" => "",
+            "name_slug" => "loge"),
+        array(
+            "id" => "2",
+            "name" => "Fasolt",
+            "description" => "",
+            "os" => "",
+            "distribution" => "",
+            "version" => "",
+            "kernel" => "",
+            "architecture" => "",
+            "other_fw" => "",
+            "binary_link" => "",
+            "source_link" => "",
+            "name_slug" => "fasolt"),
+        array(
+            "id" => "3",
+            "name" => "Fafner",
+            "description" => "",
+            "os" => "",
+            "distribution" => "",
+            "version" => "",
+            "kernel" => "",
+            "architecture" => "",
+            "other_fw" => "",
+            "binary_link" => "",
+            "source_link" => "",
+            "name_slug" => "fafner"),
+        array(
+            "id" => "4",
+            "name" => "Brünnhilde",
+            "description" => "",
+            "os" => "",
+            "distribution" => "",
+            "version" => "",
+            "kernel" => "",
+            "architecture" => "",
+            "other_fw" => "",
+            "binary_link" => "",
+            "source_link" => "",
+            "name_slug" => "brunnhilde"),
+        array(
+            "id" => "5",
+            "name" => "Alberich",
+            "description" => "",
+            "os" => "",
+            "distribution" => "",
+            "version" => "",
+            "kernel" => "",
+            "architecture" => "",
+            "other_fw" => "",
+            "binary_link" => "",
+            "source_link" => "",
+            "name_slug" => "alberich"),
+        array(
+            "id" => "6",
+            "name" => "Siegmund",
+            "description" => "",
+            "os" => "",
+            "distribution" => "",
+            "version" => "",
+            "kernel" => "",
+            "architecture" => "",
+            "other_fw" => "",
+            "binary_link" => "",
+            "source_link" => "",
+            "name_slug" => "siegmund")
+    );
+
+    $sessions = array();
+
+    $results = array();
+
+    $decisionCriterias = array("-1", "-2", "-3");
+    $buildIds = array(
+        array("build" => "", "slug" => ""),
+        array("build" => "1234.5", "slug" => "1234-5"),
+        array("build" => "789.1", "slug" => "789-1"));
+
+    $resultFeatures = array("Lorem ipsum", "Adipiscing elit", "Nascetur ridiculus", "Fringilla vel", "Maecenas nec", "Tincidunt");
+    $resultLabels = array("lorem", "ipsum", "dolor", "sit", "amet", "aenean", "commodo", "ligula", "eget", "dolor", "massa", "cum", "sociis", "natoque", "penatibus", "et", "magnis", "dis", "parturient", "montes", "nascetur", "ridiculus", "mus", "Donec", "quam", "felis,", "ultricies", "nec", "pellentesque", "eu", "pretium", "quis", "sem", "nulla", "consequat", "massa", "quis", "enim", "Donec", "pede", "justo", "fringilla", "vel", "aliquet", "nec", "vulputate", "eget", "arcu", "Maecenas", "nec", "odio", "et", "ante", "tincidunt", "tempus", "Donec", "vitae", "sapien", "ut", "libero", "venenatis", "faucibus", "Nullam", "quis", "ante", "Etiam", "sit", "amet", "orci", "eget", "eros", "faucibus");
+}
+?>
+
+SfGuardUser:
+  user_1:
+    first_name: "Admin"
+    last_name: "Password"
+    email_address: "admin@noreply.com"
+    username: "admin"
+    algorithm: "sha1"
+    salt:
+    password: "password"
+    is_active: 1
+    is_super_admin: 1
+    last_login:
+    validate:
+    created_at: "2013-01-01 19:00:00"
+    updated_at: "2013-01-01 19:00:00"
+
+SfGuardGroup:
+  group_1:
+    name: "<?php echo $projectGroup["name"] ?>"
+    description: "<?php echo $projectGroup["description"] ?>"
+    created_at: ""2013-01-01 19:00:00""
+    updated_at: ""2013-01-01 19:00:00""
+
+SfGuardPermission:
+  guest:
+    name: "Guest"
+    description: "Read-Only"
+    created_at: "2013-01-01 19:00:00"
+    updated_at: "2013-01-01 19:00:00"
+  user:
+    name: "User"
+    description: "Can import into assigned project(s) and modify his/her data"
+    created_at: "2013-01-01 19:00:00"
+    updated_at: "2013-01-01 19:00:00"
+  lead:
+    name: "Lead"
+    description: "Full read-write into assigned project(s)"
+    created_at: "2013-01-01 19:00:00"
+    updated_at: "2013-01-01 19:00:00"
+  admin:
+    name: "Admin"
+    description: "Full control"
+    created_at: "2013-01-01 19:00:00"
+    updated_at: "2013-01-01 19:00:00"
+
+SfGuardUserPermission:
+  userPermission_1:
+    user_id: 1
+    permission_id: 4
+    created_at: "2013-01-01 19:00:00"
+    updated_at: "2013-01-01 19:00:00"
+
+SfGuardGroupPermission:
+  groupPermission_1:
+    group_id: 1
+    permission_id: 1
+    created_at: "2013-01-01 19:00:00"
+    updated_at: "2013-01-01 19:00:00"
+  groupPermission_2:
+    group_id: 1
+    permission_id: 2
+    created_at: "2013-01-01 19:00:00"
+    updated_at: "2013-01-01 19:00:00"
+  groupPermission_3:
+    group_id: 1
+    permission_id: 3
+    created_at: "2013-01-01 19:00:00"
+    updated_at: "2013-01-01 19:00:00"
+  groupPermission_4:
+    group_id: 1
+    permission_id: 4
+    created_at: "2013-01-01 19:00:00"
+    updated_at: "2013-01-01 19:00:00"
+
+ProductType:
+<?php foreach($productTypes as $key => $productType): ?>
+  productType_<?php echo $key ?>:
+    name: "<?php echo $productType["name"] ?>"
+    description: "<?php echo $productType["description"] ?>"
+    name_slug: "<?php echo $productType["slug"] ?>"
+<?php endforeach ?>
+
+ComplementaryTool:
+<?php foreach($complementaryTools as $key => $complementaryTool): ?>
+  complementaryTool_<?php echo $key ?>:
+    name: "<?php echo $complementaryTool["name"] ?>"
+    version: "<?php echo $complementaryTool["version"] ?>"
+    description: "<?php echo $complementaryTool["description"] ?>"
+    entry_link: "<?php echo $complementaryTool["link"] ?>"
+<?php endforeach ?>
+
+DbInfo:
+  dbinfo_1:
+    version: 1
+    comment: "Initial import."
+    core_db_name: "qa_core"
+    user_id: 1
+    changed_at: "2013-01-01 19:00:00"
+
+Project:
+<?php foreach($projects as $key => $project): ?>
+  project_<?php echo $key ?>:
+    name: "<?php echo $project["name"] ?>"
+    description: "<?php echo $project["description"] ?>"
+    user_id: 1
+    created_at: "2013-01-01 19:00:00"
+    status: "<?php echo $project["status"] ?>"
+    security_level: "<?php echo $project["security_level"] ?>"
+    name_slug: "<?php echo $project["slug"] ?>"
+<?php endforeach ?>
+
+ProjectToProduct:
+<?php $count = 0 ?>
+<?php foreach($projects as $key1 => $project): ?>
+<?php foreach($productTypes as $key2 => $productType): ?>
+<?php $count++ ?>
+  projectToProduct_<?php echo $count ?>:
+    project_group_id: 1
+    project_id: "<?php echo $project["id"] ?>"
+    product_id: "<?php echo $productType["id"] ?>"
+<?php if($loadTestData == true): ?>
+<?php array_push($projectToProducts, $count) ?>
+<?php endif ?>
+<?php endforeach ?>
+<?php endforeach ?>
+
+TableName:
+  tableName_1:
+    name: "test_result"
+  tableName_2:
+    name: "complementary_tool"
+  tableName_3:
+    name: "test_session"
+
+<?php if($loadTestData == true): ?>
+
+TestEnvironment:
+<?php $count = 0 ?>
+<?php foreach($environments as $key => $environment): ?>
+<?php $count++ ?>
+  testEnvironment_<?php echo $count ?>:
+    id: "<?php echo $environment["id"] ?>"
+    name: "<?php echo $environment["name"] ?>"
+    description: "<?php echo $environment["description"] ?>"
+    cpu: "<?php echo $environment["cpu"] ?>"
+    board: "<?php echo $environment["board"] ?>"
+    gpu: "<?php echo $environment["gpu"] ?>"
+    other_hardware: "<?php echo $environment["other_hardware"] ?>"
+    name_slug: "<?php echo $environment["name_slug"] ?>"
+<?php endforeach ?>
+
+Image:
+<?php $count = 0 ?>
+<?php foreach($images as $key => $image): ?>
+<?php $count++ ?>
+  image_<?php echo $count ?>:
+    id: "<?php echo $image["id"] ?>"
+    name: "<?php echo $image["name"] ?>"
+    description: "<?php echo $image["description"] ?>"
+    os: "<?php echo $image["os"] ?>"
+    distribution: "<?php echo $image["distribution"] ?>"
+    version: "<?php echo $image["version"] ?>"
+    kernel: "<?php echo $image["kernel"] ?>"
+    architecture: "<?php echo $image["architecture"] ?>"
+    other_fw: "<?php echo $image["other_fw"] ?>"
+    binary_link: "<?php echo $image["binary_link"] ?>"
+    source_link: "<?php echo $image["source_link"] ?>"
+    name_slug: "<?php echo $image["name_slug"] ?>"
+<?php endforeach ?>
+
+Configuration:
+<?php for($i=1; $i<=7; $i++): ?>
+<?php $image_id = $images[array_rand($images)]["id"] ?>
+<?php $test_environment_id = $environments[array_rand($environments)]["id"] ?>
+<?php $project_to_product_id = $projectToProducts[array_rand($projectToProducts)] ?>
+  configuration_<?php echo $i ?>:
+    id: "<?php echo $i ?>"
+    image_id: "<?php echo $image_id ?>"
+    test_environment_id: "<?php echo $test_environment_id ?>"
+    project_to_product_id: "<?php echo $project_to_product_id ?>"
+<?php array_push($configurations, array("id" => "$i", "image_id" => "$image_id", "test_environment_id" => "$test_environment_id", "project_to_product_id" => "$project_to_product_id")) ?>
+<?php endfor ?>
+
+TestSession:
+<?php $count = 0 ?>
+<?php foreach($configurations as $key => $configuration): ?>
+<?php $random = rand(2, 25) ?>
+<?php for($i=1; $i<=$random; $i++): ?>
+<?php $count++ ?>
+<?php $date = date("Y-m-d H:i:s", rand(1262347200, 1357041600)) ?>
+<?php $build = $buildIds[array_rand($buildIds)] ?>
+  test_session_<?php echo $count ?>:
+    id: "<?php echo $count ?>"
+    build_id: "<?php echo $build['build'] ?>"
+    testset: ""
+    name: "<?php echo '('.$count.') Test Report: '.$environments[$configuration['test_environment_id'] - 1]['name'].' '.$images[$configuration['image_id'] - 1]['name'].' '.$date ?>"
+    test_objective: ""
+    qa_summary: ""
+    user_id: 1
+    created_at: <?php echo $date ?>
+    editor_id: 1
+    updated_at: <?php echo $date ?>
+    project_release: ""
+    project_milestone: ""
+    issue_summary: ""
+    status: 2
+    published: 1
+    configuration_id: "<?php echo $configuration["id"] ?>"
+    campaign_checksum: ""
+    build_slug: "<?php echo $build['slug'] ?>"
+    testset_slug: ""
+    notes: ""
+<?php array_push($sessions, $count) ?>
+<?php endfor ?>
+<?php endforeach ?>
+
+<?php foreach($configurations as $key => $configuration): ?>
+<?php $random = rand(2, 10) ?>
+<?php for($i=1; $i<=$random; $i++): ?>
+<?php $count++ ?>
+<?php $date = date("Y-m-d H:i:s", rand(1262347200, 1357041600)) ?>
+<?php $build = date("Ymd_His")."_".rand(1, 20) ?>
+  test_session_<?php echo $count ?>:
+    id: "<?php echo $count ?>"
+    build_id: "<?php echo $build ?>"
+    testset: ""
+    name: "<?php echo '('.$count.') Test Report: '.$environments[$configuration['test_environment_id'] - 1]['name'].' '.$images[$configuration['image_id'] - 1]['name'].' '.$date ?>"
+    test_objective: ""
+    qa_summary: ""
+    user_id: 1
+    created_at: <?php echo $date ?>
+    editor_id: 1
+    updated_at: <?php echo $date ?>
+    project_release: ""
+    project_milestone: ""
+    issue_summary: ""
+    status: 2
+    published: 1
+    configuration_id: "<?php echo $configuration["id"] ?>"
+    campaign_checksum: ""
+    build_slug: "<?php echo $build ?>"
+    testset_slug: ""
+<?php array_push($sessions, $count) ?>
+<?php endfor ?>
+<?php endforeach ?>
+
+TestResult:
+<?php $count = 0 ?>
+<?php foreach($sessions as $key => $session): ?>
+<?php $random = rand(10, 60) ?>
+<?php for($i=1; $i<=$random; $i++): ?>
+<?php $count++ ?>
+  test_result_<?php echo $count ?>:
+    id: "<?php echo $count ?>"
+    name: "<?php echo $resultLabels[array_rand($resultLabels)] ?>"
+    complement: ""
+    test_session_id: "<?php echo $session ?>"
+    decision_criteria_id: "<?php echo $decisionCriterias[array_rand($decisionCriterias)] ?>"
+    comment: ""
+    started_at: ""
+    execution_time: ""
+    status: 0
+    bugs: ""
+<?php array_push($results, $count) ?>
+<?php endfor ?>
+<?php endforeach ?>
+
+ComplementaryToolRelation:
+<?php $count = 0 ?>
+<?php foreach($results as $key => $result): ?>
+<?php $count++ ?>
+  complementary_tool_relation_<?php echo $count ?>:
+    id: "<?php echo $count ?>"
+    label: "<?php echo $resultFeatures[array_rand($resultFeatures)] ?>"
+    table_name_id: 1
+    table_entry_id: "<?php echo $result ?>"
+    complementary_tool_id: 0
+    tool_key: ""
+    category: 1
+<?php endforeach ?>
+
+<?php endif ?>

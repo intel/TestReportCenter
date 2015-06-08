@@ -1,0 +1,36 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           TestEnvironment
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          test_environment
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        title: Test environments list
+        display: [id, name, cpu, board, gpu, name_slug]
+        max_per_page: 30
+        batch_actions: {}
+        object_actions:
+          _edit: ~
+        actions:
+          _new: ~
+          _delete: { label: Delete obsolete items, action: cleanObsolete, params: confirm=Are you sure? }
+      filter:
+        display: [id, name, cpu, board, gpu, name_slug]
+      form: ~
+      edit:
+        title: Editing test environment "%%name%%"
+        actions:
+          _list: ~
+          _save: ~
+      new:
+        title: Adding a new test environment

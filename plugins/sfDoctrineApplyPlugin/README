@@ -1,0 +1,382 @@
+# sfDoctrineApply plugin #
+
+Most public sites have similar needs where user registration is
+concerned. In order to slow down spam a little bit and get a grip
+on who's doing what, you want users to apply for accounts and 
+confirm them by clicking on a link in an email message. 
+
+Symfony's sfDoctrineGuardPlugin does a fine job managing the accounts you 
+already have but doesn't provide a built-way for users to apply for and
+create accounts. sfDoctrineApplyPlugin adds that capability.
+
+sfDoctrineApplyPlugin also implements a password reset feature that works
+correctly and also requires users to confirm via email. This prevents a 
+user who has discovered a momentarily unattended PC from 
+taking over the account too easily.
+
+Version 1.2.1 also adds support for logging in via Facebook. The user's full name and email address are imported from Facebook. Facebook support is optional and must be configured if desired.
+
+## IMPORTANT Upgrade Notes ##
+
+### Upgrading to Version 1.2 ###
+
+Beginning with sfDoctrineApplyPlugin 1.2, Symfony's built-in SwiftMailer support is used rather than Zend Mail. There is no need to separately configure email delivery just for sfDoctrineApplyPlugin. This will affect those who are not using the default mailer. It is easy to configure SwiftMailer to deliver email via gmail, et cetera. The old mailer configuration options for sfDoctrineApplyPlugin are ignored. See [this excellent article](http://www.metulo.net/how-to-send-an-email-with-symfony-and-gmail) for more information. Also [see Jobeet day 16](http://www.symfony-project.org/jobeet/1_4/Doctrine/en/16).
+
+Note that this means you no longer need Zend Framework to use this plugin.
+
+Also beginning with sfDoctrineApplyPlugin 1.2, you will no longer need to have `email`, `fullname` and `validate` fields in a profile table. Instead, you should use the trunk version of sfDoctrineGuardPlugin (hopefully to be released soon as 1.5), which includes `email_address` and `first_name` and `last_name` fields in the `sf_guard_user` table. sfDoctrineApplyPlugin adds the `validate` field via Doctrine's support for merging additional columns in plugins and at the project level. The settings form no longer looks for a profile class. You could replace it with one that does, but we encourage you to add fields to sfGuardUser at the project level instead, as long as they are reasonable in size. A single table for the fields every user has is good database normalization and simplifies code in many places.
+
+'''What about the built-in registration feature in sfDoctrineGuardPlugin?''' The built-in registration feature in the current trunk sends no confirmation email. That limits its usefulness as it doesn't establish a valid email address for the user and there is no roadblock to spam. It's possible that this feature will mature in the future to a point where sfDoctrineApplyPlugin is no longer necessary.
+
+'''Important backwards compability note:''' beginning with sfDoctrineApplyPlugin we maintain separate first and last name fields (or rather, we use sfDoctrineGuardPlugin, which has those fields). Since the earlier version did not have such fields (it just had a fullname field), there is no 100% perfect way to populate them when migrating to the newer version. We suggest sticking with the 1.0 branch (which covers)
+
+TODO: provide some SQL here to migrate email and fullname into email_address and first_name and last_name, the latter being an approximation of course.
+
+### Upgrading to Version 1.1 (read the above first, some of this is historical) ###
+
+Beginning with sfDoctrineApplyPlugin version 1.1, the following security fix has been made:
+
+1. Usernames are only permitted to contain letters, digits, and underscores.
+
+2. Full names are not permitted to contain <, >, &, or |.
+
+This means that it is safe to echo usernames and full names without further entity escaping. Many developers are accustomed to the idea that usernames are safe, and we wanted to meet this expectation and avoid creating potential security problems.
+
+*If you are already running sfDoctrineApplyPlugin*, run this task to clean your usernames and full names:
+
+./symfony sfDoctrineApply:clean-names
+
+Of course, altering usernames prevents users from logging in. Fortunately this task generates a report with
+sufficient information to allow you to contact the affected users and inform them of the change. Most users
+are accustomed to choosing legitimate "username-like" usernames and will not be affected.
+
+"I understand why you forbid <, > and & in full names, but why |?" We forbid | because it is a part of our preferred 
+microformat for lists of disambiguated full names in sfGuard-based applications:
+
+		Full Name (username) | Full Name (username) | Full Name (username)
+
+Beginning with sfDoctrineApplyPlugin version 1.1, the following significant change has been made:
+
+We now use Zend Mail instead of SwiftMailer. We did this because SwiftMailer 3.0 was replaced
+by a non-backwards-compatible new release, and we already use the Zend Framework in our projects.
+Fewer dependencies = good. Apart from the need to install Zend and add it to your include path via 
+your `config/ProjectConfiguration.class.php` file if you are not installing it system-wide (see below), you won't notice this change much 
+unless you are using custom mailer settings for SSL, etc. Those settings have changed a bit (see below). If you hate this,
+you can override the `mail()` method of the `sfApplyActions` class at the application level.
+
+## Requirements ##
+
+You need:
+
+* Symfony 1.3 or 1.4
+
+* sfDoctrineGuardPlugin, either the 1.4.x series or the new trunk
+
+* Doctrine 
+
+* A Facebook app id and app secret, if you wish to use Facebook login. [See the Facebook developer documentation.](http://developers.facebook.com/docs/howtos/login/getting-started/)
+
+A Symfony 1.0-plus-Propel version of this plugin is also available
+separately as sfApplyPlugin.
+
+## Installation ##
+
+Read the sfDoctrineGuardPlugin documentation first! Set up that plugin before
+continuing.
+
+You '''must not use enableAllPluginsExcept''' in your `config/ProjectConfiguration.class.php` file. The order in which plugins are loaded is important. '''enable the specific plugins you want''' with `$this->enablePlugins()`, and '''make sure you enable sfDoctrineGuardPlugin BEFORE sfDoctrineApplyPlugin'''. If you do not enable them in the right order, you will wind up with the wrong version of `PluginsfGuardUserTable.class.php`. Don't say I didn't warn you.
+
+'''Now that you don't use a separate profile class anymore, how do I add extra fields?''' Add them to your schema for `sfGuardUser` at the project level in `config/doctrine/schema.yml`:
+
+		sfGuardUser:
+		  columns:
+		    age:
+					type: integer
+
+You can still use a profile class, however the default "edit your settings" from in sfDoctrineApplyPlugin no longer looks for one. Storing all fields unique to a particular user in a single table is better database normalization and avoids lots of coding gotchas. Keep in mind that modern databases are rather good at not wasting real space for null fields.
+
+You will also want to add the following routes to your `config/routing.yml`.
+The URLs are just suggestions, you can change them if you don't like them.
+Note that this plugin provides a working solution for users who have 
+forgotten their passwords. Mapping the `sf_guard_password` route to 
+`sfApply/reset-request` allows the "forgot your password?" link in
+the default sfGuardPlugin login form to work. '''New in 1.2:''' sfDoctrineGuardPlugin's trunk now offers a working "forgot your password?" feature of its own. You can leave that implementation in place, or switch the route to our version. If you are using the stable releases of sfDoctrineGuardPlugin you'll definitely need our version.
+
+Both implementations appear to be secure and correct. Ours logs the user in automatically after they change their password, as a convenience with no loss in security. Since the new version of sfDoctrineGuardPlugin is still maturing (and not available in a stable release) we plan to keep ours in place for now. At some point our change password action may become a redirect to the sfDoctrineGuardPlugin version.
+
+    apply:
+      url:  /apply
+      param: { module: sfApply, action: apply }
+
+    reset:
+      url: /reset
+      param: { module: sfApply, action: reset }
+
+    resetRequest:
+      url: /reset-request
+      param: { module: sfApply, action: resetRequest }
+
+    validate:
+      url: /confirm/:validate
+      param: { module: sfApply, action: confirm }
+
+    settings:
+      url: /settings
+      param: { module: sfApply, action: settings }
+
+    # We implement the missing sf_guard_password feature from sfGuardPlugin
+    sf_guard_password:
+      url: /reset-request
+      param: { module: sfApply, action: resetRequest }
+
+In addition, by default, sfDoctrineApplyPlugin assumes you have
+an @homepage route and various "Continue" links point there. If you 
+don't have such a route or don't like that destination, set
+`app_sfApplyPlugin_after` to the route of your choice.
+
+We have also added `app_sfApplyPlugin_afterLogin`. If the user
+is authenticated and this value is set, it will be used in preference
+to `app_sfApplyPlugin_after`. This is more suitable if your goal
+is to send users who have successfully confirmed their accounts
+to a particular destination, rather than sending all "Continue" buttons there,
+even those for failure messages and partial success messages like those displayed
+after a confirmation email is sent.
+
+If you have enabled the built-in routes in sfGuardPlugin, 
+then overriding `sf_guard_password` here might not work. You can
+fix that by copying `sfGuardPlugin/modules/sfGuardAuth/templates/loginSuccess.php`
+to your application and editing the "forgot your password?" link to
+point to `sfApply/resetRequest` instead.
+
+Activate the `sfApply` module in your application's
+`settings.yml` file:
+
+    enabled_modules:        [default, sfGuardAuth, sfApply]
+
+Note that you also need the `sfGuardAuth` module to enable logins.
+
+Configure the "from" address and full name for email messages sent by
+sfDoctrineApplyPlugin in your `app.yml` file. Note that the key is
+sfApplyPlugin, not sfDoctrineApplyPlugin, for compatibility with other versions:
+
+      sfApplyPlugin:
+        from:
+          email: "your@emailaddress.com"
+          fullname: "the staff at yoursite.com"
+
+If you also wish to have Facebook login support, you must provide your Facebook app id and app secret:
+
+      sfApplyPlugin:
+        from:
+          email: "your@emailaddress.com"
+          fullname: "the staff at yoursite.com"
+        facebook:
+          id: xxxxxx
+          secret: xxxxxx
+
+If you enable Facebook login you must also supply an appropriate route pointing to the sfApply/facebookLogin action. To avoid conflicts this must be done manually. Prepend this route to routing.yml:
+
+    sf_apply_facebook_login:
+      url: /facebook-login
+      param: { module: sfApply, action: facebookLogin }
+
+sfDoctrineApplyPlugin is fully internationalized. As a consequence you'll need
+to turn on i18n support in settings.yml if you have not already done so:
+
+    all:
+      .settings:
+        i18n: on  
+
+*Important: sfDoctrineApplyPlugin will not work* unless you configure these
+options! The plugin will fail with a less than informative error message
+(although a more informative one appears in the log file).
+My apologies for leaving this rather important information out of the
+documentation of the earliest versions.
+
+'''Email transport configuration has been moved out of sfDoctrineApplyPlugin'''. Now that we are using the built-in SwiftMailer support in Symfony 1.3/1.4, you can simply configure mail delivery for your entire Symfony project. The default is to use `mail()`. We're pleased to be out of the email transport business. For more information see the Symfony SwiftMailer documentation.
+
+Now that you have configured the plugin, you can easily add a link to your 
+pages sending users to `sfApply/apply` to request accounts:
+
+    echo link_to("Create Account", "sfApply/apply");
+
+You will almost certainly also want to copy 
+sfGuardPlugin's `modules/sfGuardAuth/templates/signinSuccess.php` to
+your own application's modules folder and add a "Create Account"
+link to it, so that users understand they can make accounts 
+of their own at what would otherwise be the most frustrating point 
+in your application.
+
+## Customizing Emails ##
+
+sfApply sends out email messages inviting users to verify their
+accounts or reset their passwords. You can customize these by
+copying `modules/sfApply/templates/sendValidateNew.php` (HTML),
+ `modules/sfApply/templates/sendValidateNewText.php` (plaintext),
+`modules/sfApply/templates/sendValidateReset.php` (HTML),
+and 
+ `modules/sfApply/templates/sendValidateResetText.php` (plaintext),
+from the plugin to
+your application and editing them. The default emails aren't
+that bad; they do contain the name of your site. But you really ought 
+to customize these so that users get a warm, fuzzy, personal sense that the
+messages are not spam. 
+
+Note that all of our templates are I18N-ready for easy internationalization.
+You might not be familiar with PHP's "heredoc" syntax:
+
+    <<<EOM
+    text
+    goes
+    here
+    EOM
+
+This quotes a string that extends for multiple lines with no
+restrictions on the use of " and ' (but $ is still special if it
+introduces a variable name for substitution). THE FINAL EOM MUST BE FLUSH LEFT.
+
+The heredoc syntax is very useful for internationalizing longer snippets of text that
+include HTML tags. We also use the variable substitution feature
+of the `__` function.
+
+## Displaying Login and Logout Prompts on Every Page ##
+
+You probably have pages on which logging in is optional. It's nice to
+display a login prompt directly on these pages. If you want to do that,
+try including our login/logout prompt component from your
+`apps/frontend/templates/layout.php` file:
+
+    <?php include_component('sfApply', 'login') ?>
+
+If you are using the provided stylesheet, the login prompt will
+be floated at the far right, so you'll want to emit this code
+before anything that should appear to the left of the prompt.
+
+When the user is already logged in, the login prompt is 
+automatically replaced by a logout prompt.
+
+The partials have been designed to make it easy to override and extend them without overriding the entire thing, so check out the sfApply/templates folder carefully before taking a blunt approach.
+
+Note that you can suppress the login prompt on pages that do not need it by setting the `sf_apply_login` slot to an empty string:
+
+    <?php slot('sf_apply_login', '') ?>
+    <?php end_slot() ?>
+
+This can be useful when you wish to include the login partial in your
+layout template but need to override it occasionally.
+
+## Using the Suggested Stylesheet ##
+
+sfApply comes with a stylesheet. You don't have to use it. If you do,
+you'll get reasonable styles for the sfApply pages as well as a
+reasonably good-looking style for the sfGuardPlugin login page. 
+
+If you wish to use our stylesheet directly, first make sure you have a 
+symbolic link from `web/sfDoctrineApplyPlugin` to `plugins/sfDoctrineApplyPlugin/web`. Then add
+the stylesheet to your view.yml file:
+
+      stylesheets:    [main, /sfDoctrineApplyPlugin/css/login-apply]
+
+In the long run, you'll probably want to borrow from it rather than
+using it directly.
+
+## Extending sfApply ##
+
+Of course, your user class (or profile class) probably contains additional fields. How 
+do you deal with them at application time and when the user is editing
+their settings?
+
+In the original sfApplyPlugin, it was necessary to add your own 
+code to deal with additional fields.
+
+In sfDoctrineApplyPlugin this is not necessary, although you will
+indeed wind up writing *some* code in most cases.
+
+In version 1.2 and later, sfApplyApplyForm and sfApplySettingsForm inherit from sfGuardUserForm, not sfGuardUserProfileForm. This allows you to take advantage of Doctrine 1.2 and its support for adding new columns to tables at the project level in `config/doctrine/schema.yml`:
+
+		sfGuardUser:
+		  columns:
+		    age:
+					type: integer
+
+You '''do not''' need to restate all of the standard columns.
+
+Your original fields will not show up by default because this can lead to unexpected behavior if you did not design your schema with these forms in mind. To address that, override `sfApplyApplyForm` and `sfApplySettingsForm` at the project level and override the `getUseFields` method to add your additional fields to those enabled by default:
+
+		class sfApplyApplyForm extends BasesfApplyApplyForm
+		{
+		  public function getUseFields()
+		  {
+		    // List as many fields as you want in the second argument to array_merge
+		    return array_merge(parent::getUseFields(), array('age'));
+		  }
+		}
+
+Any fields you do not explicitly add will not be in the form.
+
+Use the same technique when overriding `sfApplySettingsForm`.
+
+Although version 1.2 and above now support the traditional Symfony approach of overriding `sfApplyApplyForm` at the project level and extending `BasesfApplyApplyForm`, it is still possible to specify an alternate class via `app.yml`:
+
+all:
+  sfApplyPlugin:
+    # Application form class
+    sfApplyApplyForm_class: myApplyFormClass
+    # Settings form class
+    sfApplySettingsForm_class: mySettingsFormClass
+    # Password reset form class
+    sfApplyResetForm_class: myResetFormClass
+    # Password reset request form class
+    sfApplyResetRequestForm_class: myResetRequestFormClass
+
+But this is optional. It is usually simpler just to override the classes at the project level and extend the `Base` classes.
+
+For additional relevant information, see the [Doctrine Integration chapter of Symfony Forms in Action](http://www.symfony-project.org/book/forms/1_2/en/11-Doctrine-Integration).
+
+If you subclass or override our form classes and add a `configure` method, *be sure to call* `parent::configure()` at the beginning of *your* configure method.
+
+*Note*: subclassing forms that use postvalidators is a bit tricky if you
+need to add postvalidators of your own. Here is one good way to do it,
+taken from our sfApplyApplyForm class:
+
+    $schema = $this->validatorSchema;
+    // Grab the existing postvalidator
+    $postValidator = $schema->getPostValidator();
+    // Create an array of new postvalidators we want to add
+    $postValidators = array(
+      new sfValidatorSchemaCompare(
+        'password', sfValidatorSchemaCompare::EQUAL, 'password2',
+        array(), array('invalid' => 'The passwords did not match.')),
+      new sfValidatorSchemaCompare(
+        'email_address', sfValidatorSchemaCompare::EQUAL, 'email2',
+        array(), array('invalid' => 'The email addresses did not match.')));
+    // if there is an existing postvalidator add it to the list
+    if ($postValidator)
+    {
+      $postValidators[] = $postValidator;
+    }
+    // Put them all into effect with sfValidatorAnd
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorAnd($postValidators));
+
+With all of the power that Symfony 1.4 forms provide (hint: if you
+can't do something you probably haven't looked at `doSave` or
+`updateObject` yet), you probably won't need to write your own
+sfApply actions class. But you can do that if you need to:
+
+Copy `sfDoctrineApplyPlugin/modules/sfApply/actions/actions.class.php` to
+your own `modules/sfApply/actions` folder. Notice that this class is
+initially empty. That's because it inherits its default
+behavior from 
+`sfDoctrineApplyPlugin/modules/sfApply/lib/BasesfApplyActions.class.php`.
+
+Of course, you can also copy and modify the templates. It is fairly
+likely that you will want to do that, and you may very well
+decide that `echo $form` is not enough control over layout and
+presentation. That's fine. See the Symfony forms book for more
+information about how to render each form element directly.
+
+## Credits ##
+
+sfDoctrineApplyPlugin was written at P'unk Avenue. Tom Boutell is a good point of contact: [tom@punkave.com](mailto:tom@punkave.com). See also [punkave.com](http://punkave.com/).
+

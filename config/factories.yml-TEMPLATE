@@ -1,0 +1,26 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/05-Factories
+
+all:
+  user:
+    class: myUser
+    param:
+      timeout: 7200
+
+  storage:
+    class: sfSessionStorage
+    param:
+      session_name: qarpt-session-cookie
+      session_cookie_lifetime: 14400
+      session_cookie_path: /MY_FOLDER
+
+  mailer:
+    param:
+      transport:
+        class: Swift_SmtpTransport
+        param:
+          host:       localhost
+          port:       25
+          encryption: ~
+          username: ~
+          password: ~

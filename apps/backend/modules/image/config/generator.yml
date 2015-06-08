@@ -1,0 +1,36 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           Image
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          image
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        title: Images list
+        display: [id, name, os, distribution, version, kernel, architecture, name_slug]
+        max_per_page: 30
+        batch_actions: {}
+        object_actions:
+          _edit: ~
+        actions:
+          _new: ~
+          _delete: { label: Delete obsolete items, action: cleanObsolete, params: confirm=Are you sure? }
+      filter:
+        display: [id, name, os, distribution, version, kernel, architecture, binary_link, source_link, name_slug]
+      form: ~
+      edit:
+        title: Editing image "%%name%%"
+        actions:
+          _list: ~
+          _save: ~
+      new:
+        title: Adding a new image

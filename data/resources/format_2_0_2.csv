@@ -1,0 +1,4 @@
+Feature,Case Id,Test Case,Pass,Fail,N/A,Measured,Comment,Measurement Name,Value,Unit,Target,Failure
+My feature name,TestCase name 1,Test steps or comments,1,,,,Note on Passing test,,,,,
+My feature name,TestCase name 2,Test steps or comments,,1,,,Note on Failing test,,,,,
+My feature name,TestCase name 3,Test steps or comments,,,1,,Note on Blocking test,,,,,

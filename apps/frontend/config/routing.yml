@@ -1,0 +1,440 @@
+
+# Default homepage of the application
+homepage:
+  url:   /
+  param: { module: reports, action: project }
+
+
+#=============================================================================#
+#          SF APPLY PLUGIN                                                    #
+#=============================================================================#
+
+apply:
+  url:   /apply
+  param: { module: sfApply, action: apply }
+
+reset:
+  url:   /reset
+  param: { module: sfApply, action: reset }
+
+resetRequest:
+  url:   /reset-request
+  param: { module: sfApply, action: resetRequest }
+
+validate:
+  url:   /confirm/:validate
+  param: { module: sfApply, action: confirm }
+
+
+#=============================================================================#
+#          SF GUARD PLUGIN                                                    #
+#=============================================================================#
+
+sf_guard_signin:
+  url:   /login
+  param: { module: signin, action: login }
+
+sf_guard_signout:
+  url:   /logout
+  param: { module: signin, action: logout }
+
+sf_guard_password:
+  url:   /reset-request
+  param: { module: sfApply, action: resetRequest }
+
+# Edit user profile
+profile:
+  url:   /profile
+  param: { module: profile, action: edit }
+
+
+#=============================================================================#
+#          REST API                                                           #
+#=============================================================================#
+
+import_rest_api:
+  url:   /api/import
+  param: { module: rest, action: importRestApi }
+
+import_rest_api_update:
+  url:   /api/update/:id
+  param: { module: rest, action: importRestApiUpdate }
+  requirements:
+    id:  \d+
+
+import_rest_api_merge:
+  url:   /api/merge/:id
+  param: { module: rest, action: importRestApiMerge }
+  requirements:
+    id:  \d+
+
+export_rest_api_limit_amount:
+  url:   /api/reports
+  param: { module: rest, action: exportRestApiLimitAmount }
+
+export_rest_api_auth_token:
+  url:   /api/report/:id
+  param: { module: rest, action: exportRestApiAuthToken }
+  requirements:
+    id:  \d+
+
+export_rest_api_download_csv:
+  url:   /api/download
+  param: { module: rest, action: exportRestApiDownloadCsv }
+
+
+#=============================================================================#
+#          AJAX                                                               #
+#=============================================================================#
+
+# Get products of the given project id
+search_products:
+  url:   /search/products/:projectGroupId/:projectId
+  param: { module: reports, action: searchProducts }
+  requirements:
+    projectGroupId:  \d+
+    projectId:       \d+
+
+# Delete a test result from a test session
+delete_result:
+  url:   /result/delete/:id
+  param: { module: reports, action: deleteResult }
+  requirements:
+    id:  \d+
+
+# Display a form to edit a test result
+update_result:
+  url:   /result/update/:id
+  param: { module: reports, action: updateResult }
+  requirements:
+    id:  \d+
+
+# Refresh a test result in a test session after update
+refresh_result:
+  url:   /result/refresh/:id
+  param: { module: reports, action: refreshResult }
+  requirements:
+    id:  \d+
+
+# Delete a measure from a test session
+delete_measure:
+  url:   /measure/delete/:id
+  param: { module: reports, action: deleteMeasure }
+  requirements:
+    id:  \d+
+
+# Display a form to edit a measure
+update_measure:
+  url:   /measure/update/:id
+  param: { module: reports, action: updateMeasure }
+  requirements:
+    id:  \d+
+
+# Refresh a measure in a test session after update
+refresh_measure:
+  url:   /measure/refresh/:id
+  param: { module: reports, action: refreshMeasure }
+  requirements:
+    id:  \d+
+
+# Display a form to edit a build id from the homepage
+update_build:
+  url:   /build/update/:build
+  param: { module: reports, action: updateBuild }
+
+# Display a form to edit a testset from the homepage
+update_testset:
+  url:   /testset/update/:testset
+  param: { module: reports, action: updateTestset }
+
+# Display a form to edit a test environment from the homepage
+update_environment:
+  url:   /environment/update/:id
+  param: { module: reports, action: updateEnvironment }
+  requirements:
+    id:  \d+
+
+# Display a form to edit an image from the homepage
+update_image:
+  url:   /image/update/:id
+  param: { module: reports, action: updateImage }
+  requirements:
+    id:  \d+
+
+# Delete an attachment from a test session
+delete_attachment:
+  url:   /attachment/delete/:id
+  param: { module: reports, action: deleteAttachment }
+  requirements:
+    id:  \d+
+
+
+#=============================================================================#
+#          RSS FEEDS                                                          #
+#=============================================================================#
+
+rss_build:
+  url:   /build_id/:build/:project/:product/rss
+  param: { module: rss, action: build, sf_format: rss }
+
+rss_testset:
+  url:   /testset/:testset/:project/:product/rss
+  param: { module: rss, action: testset, sf_format: rss }
+
+rss_product:
+  url:   /:project/:product/rss
+  param: { module: rss, action: product, sf_format: rss }
+rss_environment:
+  url:   /:project/:product/:environment/rss
+  param: { module: rss, action: environment, sf_format: rss }
+rss_image:
+  url:   /:project/:product/:environment/:image/rss
+  param: { module: rss, action: image, sf_format: rss }
+
+rss_build_product:
+  url:   /build_index/:build/:project/:product/rss
+  param: { module: rss, action: productBuild, sf_format: rss, build: build }
+rss_build_environment:
+  url:   /build_id/:build/:project/:product/:environment/rss
+  param: { module: rss, action: environmentBuild, sf_format: rss }
+rss_build_image:
+  url:   /build_id/:build/:project/:product/:environment/:image/rss
+  param: { module: rss, action: imageBuild, sf_format: rss }
+
+rss_testset_product:
+  url:   /testset_index/:testset/:project/:product/rss
+  param: { module: rss, action: productTestset, sf_format: rss, testset: testset }
+rss_testset_environment:
+  url:   /testset/:testset/:project/:product/:environment/rss
+  param: { module: rss, action: environmentTestset, sf_format: rss }
+rss_testset_image:
+  url:   /testset/:testset/:project/:product/:environment/:image/rss
+  param: { module: rss, action: imageTestset, sf_format: rss }
+
+
+#=============================================================================#
+#          TEST SESSIONS                                                      #
+#=============================================================================#
+
+# Shortcut URL to see reports
+see_report:
+  url:   /reports/:id/:display
+  param: { module: reports, action: see, display: basic }
+
+#--------- FORM --------------------------------------------------------------#
+
+# Display the form to add a new test session
+add_report:
+  url:   /session/upload
+  param: { module: reports, action: add }
+
+# Cancel (remove) a test session after adding it
+cancel_report:
+  url:   /session/cancel/:id
+  param: { module: reports, action: cancel }
+  requirements:
+    id:  \d+
+
+# Delete a test session (just unpublish it)
+delete_report:
+  url:   /session/delete/:id
+  param: { module: reports, action: delete }
+  requirements:
+    id:  \d+
+
+#--------- EXPORT ------------------------------------------------------------#
+
+# Download a test session as a CSV file
+export_report:
+  url:   /session/export/:id
+  param: { module: reports, action: export }
+  requirements:
+    id:  \d+
+
+# Export test sessions list from product as a CSV file
+export_product:
+  url:   /:project/:product/export
+  param: { module: reports, action: exportProduct }
+export_product_build:
+  url:   /build_index/:build/:project/:product/export
+  param: { module: reports, action: exportProductBuild, build: build }
+export_product_testset:
+  url:   /testset_index/:testset/:project/:product/export
+  param: { module: reports, action: exportProductTestset, testset: testset }
+
+# Export test sessions list from build_id as a CSV file
+export_build:
+  url:   /build_id/:build/:project/:product/export
+  param: { module: reports, action: exportBuild }
+# Export test sessions list from testset as a CSV file
+export_testset:
+  url:   /testset/:testset/:project/:product/export
+  param: { module: reports, action: exportTestset }
+
+# Export test sessions list from environment as a CSV file
+export_environment:
+  url:   /:project/:product/:environment/export
+  param: { module: reports, action: exportEnvironment }
+export_environment_build:
+  url:   /build_id/:build/:project/:product/:environment/export
+  param: { module: reports, action: exportEnvironmentBuild }
+export_environment_testset:
+  url:   /testset/:testset/:project/:product/:environment/export
+  param: { module: reports, action: exportEnvironmentTestset }
+
+# Export test sessions list from image as a CSV file
+export_image:
+  url:   /:project/:product/:environment/:image/export
+  param: { module: reports, action: exportImage }
+export_image_build:
+  url:   /build_id/:build/:project/:product/:environment/:image/export
+  param: { module: reports, action: exportImageBuild }
+export_image_testset:
+  url:   /testset/:testset/:project/:product/:environment/:image/export
+  param: { module: reports, action: exportImageTestset }
+
+#--------- GLOBAL DISPLAY ----------------------------------------------------#
+
+# Compare two test sessions
+compare_to:
+  url:   /to/:id2/:id1/compare
+  param: { module: reports, action: compareTo }
+
+# Add a test session to the comparison cart
+compare_add:
+  url:   /compare/:id/add
+  param: { module: reports, action: compareAdd }
+  requirements:
+    id:  \d+
+
+# List all environments/images for given project
+# E.g: /android/recent
+project_reports:
+  url:   /:project/filter/:filter
+  param: { module: reports, action: project, filter: recent }
+# List all environment/images for given project but organized by build
+project_builds:
+  url:   /build_index/:build/:project/filter/:filter
+  param: { module: reports, action: projectBuild, build: build, filter: recent }
+# List all environments/image for given project but organized by testset
+project_testsets:
+  url:   /testset_index/:testset/:project/filter/:filter
+  param: { module: reports, action: projectTestset, testset: testset, filter: recent }
+
+# List all sessions for given product
+# E.g: /android/smartphone
+product_reports:
+  url:   /:project/:product
+  param: { module: reports, action: product }
+product_builds:
+  url:   /build_index/:build/:project/:product
+  param: { module: reports, action: productBuild, build: build }
+product_testsets:
+  url:   /testset_index/:testset/:project/:product
+  param: { module: reports, action: productTestset, testset: testset }
+
+# List all sessions for given build id
+# E.g: /12345-6/android/smartphone
+build_reports:
+  url:   /build_id/:build/:project/:product
+  param: { module: reports, action: build }
+# List all sessions for given testset
+# E.g: /acceptance/android/smartphone
+testset_reports:
+  url:   /testset/:testset/:project/:product
+  param: { module: reports, action: testset }
+
+# List all sessions for given environment
+# E.g: /android/smartphone/sharkbay
+environment_reports:
+  url:   /:project/:product/:environment
+  param: { module: reports, action: environment }
+environment_builds:
+  url:   /build_id/:build/:project/:product/:environment
+  param: { module: reports, action: environmentBuild }
+environment_testsets:
+  url:   /testset/:testset/:project/:product/:environment
+  param: { module: reports, action: environmentTestset }
+
+# List all sessions for given image
+# E.g: /android/smartphone/sharkbay/ubuntu-12-04-VM-x86
+image_reports:
+  url:   /:project/:product/:environment/:image
+  param: { module: reports, action: image }
+image_builds:
+  url:   /build_id/:build/:project/:product/:environment/:image
+  param: { module: reports, action: imageBuild }
+image_testsets:
+  url:   /testset/:testset/:project/:product/:environment/:image
+  param: { module: reports, action: imageTestset }
+
+#--------- PRINT ---------------------------------------------------------------#
+
+# Print a test session
+# E.g: /android/smartphone/sharkbay/ubuntu-12-04-VM-x86/471/print
+print_report:
+  url:   /:project/:product/:environment/:image/:id/print
+  param: { module: reports, action: print }
+  requirements:
+    id:  \d+
+print_build:
+  url:   /build_id/:build/:project/:product/:environment/:image/:id/print
+  param: { module: reports, action: printBuild }
+  requirements:
+    id:  \d+
+print_testset:
+  url:   /testset/:testset/:project/:product/:environment/:image/:id/print
+  param: { module: reports, action: printTestset }
+  requirements:
+    id:  \d+
+
+#--------- FORMS -------------------------------------------------------------#
+
+# Edit a test session
+edit_report:
+  url:   /:project/:product/:environment/:image/:id/edit
+  param: { module: reports, action: edit }
+  requirements:
+    id:  \d+
+
+# Finalize a test session after adding it
+finalize_report:
+  url:   /:project/:product/:environment/:image/:id/finalize
+  param: { module: reports, action: edit }
+  requirements:
+    id:  \d+
+
+#--------- MISCELLANEOUS -----------------------------------------------------#
+
+# Compare two last test sessions
+compare_reports:
+  url:    /:project/:product/:environment/:image/compare
+  param: { module: reports, action: compare }
+
+compare_builds:
+  url:   /build_id/:build/:project/:product/:environment/:image/compare
+  param: { module: reports, action: compareBuild }
+
+compare_testsets:
+  url:   /testset/:testset/:project/:product/:environment/:image/compare
+  param: { module: reports, action: compareTestset }
+
+#--------- SIMPLE DISPLAY ----------------------------------------------------#
+
+# Display a test session
+# E.g: /android/smartphone/sharkbay/ubuntu-12-04-VM-x86/471
+test_session:
+  url:   /:project/:product/:environment/:image/:id/:display
+  param: { module: reports, action: session, display: basic }
+  requirements:
+    id:  \d+
+build_session:
+  url:   /build_id/:build/:project/:product/:environment/:image/:id/:display
+  param: { module: reports, action: sessionBuild, display: basic }
+  requirements:
+    id:  \d+
+testset_session:
+  url:   /testset/:testset/:project/:product/:environment/:image/:id/:display
+  param: { module: reports, action: sessionTestset, display: basic }
+  requirements:
+    id:  \d+

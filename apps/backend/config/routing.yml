@@ -1,0 +1,139 @@
+configuration:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Configuration
+    module:               configuration
+    prefix_path:          /configuration
+    column:               id
+    with_wildcard_routes: true
+
+test_environment:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                TestEnvironment
+    module:               environment
+    prefix_path:          /environment
+    column:               id
+    with_wildcard_routes: true
+
+image:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Image
+    module:               image
+    prefix_path:          /image
+    column:               id
+    with_wildcard_routes: true
+
+project:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                Project
+    module:               project
+    prefix_path:          /project
+    column:               id
+    with_wildcard_routes: true
+
+product_type:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                ProductType
+    module:               product
+    prefix_path:          /product
+    column:               id
+    with_wildcard_routes: true
+
+sf_guard_user:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                sfGuardUser
+    module:               user
+    prefix_path:          /user
+    column:               id
+    with_wildcard_routes: true
+
+sf_guard_group:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                sfGuardGroup
+    module:               group
+    prefix_path:          /group
+    column:               id
+    with_wildcard_routes: true
+
+sf_guard_permission:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                sfGuardPermission
+    module:               permission
+    prefix_path:          /permission
+    column:               id
+    with_wildcard_routes: true
+
+test_session:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                TestSession
+    module:               reports
+    prefix_path:          /reports
+    column:               id
+    with_wildcard_routes: true
+
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+edit_group:
+  url:   /group/:id/edit
+  param: { module: group, action: edit }
+  requirements:
+    id:  \d+
+
+edit_user:
+  url:   /user/:id/edit
+  param: { module: user, action: edit }
+  requirements:
+    id:  \d+
+
+edit_project:
+  url:   /project/:id/edit
+  param: { module: project, action: edit }
+  requirements:
+    id:  \d+
+
+edit_product:
+  url:   /product/:id/edit
+  param: { module: product, action: edit }
+  requirements:
+    id:  \d+
+
+edit_configuration:
+  url:   /configuration/:id/edit
+  param: { module: configuration, action: edit }
+  requirements:
+    id:  \d+
+
+edit_test_environment:
+  url:   /environment/:id/edit
+  param: { module: environment, action: edit }
+  requirements:
+    id:  \d+
+
+edit_image:
+  url:   /image/:id/edit
+  param: { module: image, action: edit }
+  requirements:
+    id:  \d+
+
+# default rules
+homepage:
+  url:   /
+  param: { module: default, action: index }
+
+# generic rules
+# please, remove them by adding more specific rules
+default_index:
+  url:   /:module
+  param: { action: index }
+
+default:
+  url:   /:module/:action/*

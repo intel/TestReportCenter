@@ -1,0 +1,39 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           sfGuardUser
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          sf_guard_user
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        last_login:     { date_format: y/MM/dd HH:mm:ss }
+        created_at:     { date_format: y/MM/dd HH:mm:ss }
+        updated_at:     { date_format: y/MM/dd HH:mm:ss }
+        is_active:      { label: Active? }
+        is_super_admin: { label: Admin? }
+      list:
+        title: Users management
+        display: [id, first_name, last_name, email_address, username, is_active, is_super_admin, _last_login, created_at, updated_at, token, security_level]
+        max_per_page: 20
+        batch_actions:
+          delete: { label: Deactivate }
+        object_actions:
+          _edit:  ~
+          delete: { label: Deactivate, params: confirm=Are you sure? }
+      filter:
+        display: [id, first_name, last_name, email_address, username, is_active, is_super_admin, last_login, created_at, updated_at, groups_list, permissions_list]
+        class: sfGuardUserFormFilterCustom
+      form:
+        class: sfGuardUserAdminForm
+      edit:
+        title: Editing user "%%first_name%% %%last_name%% (%%username%%)"
+      new:
+        title: Adding a new user

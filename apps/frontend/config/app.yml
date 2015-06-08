@@ -1,0 +1,13 @@
+# You can find more information about this file on the symfony website:30
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+all:
+  .array:
+    # Prefill form fields with templates located in TRC_ROOT_DIR/web/templates/
+    # Naming convention:
+    #    <template_FIELD_NAME>: _file_name.txt
+    prefill_templates:
+      # Samples:
+      template_qa_summary: _qa_summary.txt
+      # template_environment_summary: _my_env_summary.txt
+

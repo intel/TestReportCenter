@@ -1,0 +1,33 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           Project
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          project
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        created_at:     { date_format: y/MM/dd HH:mm:ss }
+      list:
+        title:   Projects list
+        display: [id, name, _user_id, created_at, status, security_level, name_slug]
+        max_per_page: 30
+        batch_actions:
+          delete:             { label: Hide }
+        object_actions:
+          _edit:              ~
+          delete:             { label: Hide }
+      filter:
+        display: [id, name, username, created_at, status, security_level, name_slug]
+      form:    ~
+      edit:
+        title: Editing project "%%name%%"
+      new:
+        title: Adding a new project

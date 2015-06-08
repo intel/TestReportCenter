@@ -1,0 +1,16 @@
+.settings
+.buildpath
+.project
+/cache/*
+/log/*
+/config/app.yml
+/config/databases.yml
+/config/factories.yml
+/web/uploads/*
+/web/templates/*.txt
+/web/.htaccess
+!/web/uploads/example.xml
+!/web/uploads/example.csv
+/data/sql/*
+/test/*
+

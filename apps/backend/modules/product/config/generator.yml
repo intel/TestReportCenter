@@ -1,0 +1,27 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           ProductType
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          product_type
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        title:   Products list
+        display: [id, name, name_slug]
+        max_per_page: 30
+      filter:
+        display: [id, name, name_slug]
+      form:    ~
+      edit:
+        title: Editing product type "%%name%%"
+      new:
+        title: Adding a new product type

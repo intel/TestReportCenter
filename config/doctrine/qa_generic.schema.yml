@@ -1,0 +1,319 @@
+connection:         qa_generic
+options:
+  charset:          utf8
+  type:             InnoDB
+  package:          qa.generic
+  connection:       qa_generic
+  detect_relations: true
+
+DbInfo:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  db_info
+  columns:
+    version:      { type: integer(4), primary: true, notnull: true }
+    comment:      { type: text, notnull: true }
+    core_db_name: { type: string(45), notnull: true }
+    user_id:      { type: integer(4), notnull: true }
+    changed_at:   { type: timestamp, notnull: true }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+Project:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  project
+  columns:
+    id:             { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:           { type: string(128), notnull: true }
+    description:    { type: text, notnull: true }
+    user_id:        { type: integer(4), notnull: true }
+    created_at:     { type: timestamp, notnull: true }
+    ## Status:
+    #   0: Inactive
+    #   1: Active
+    #   2: Read-only
+    status:         { type: integer(4), notnull: true }
+    security_level: { type: integer(1), notnull: true }
+    name_slug:      { type: string(255), notnull: true, unique: true }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+ProjectToProduct:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  project_to_product
+  columns:
+    id:               { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    project_group_id: { type: integer(4), notnull: true }
+    project_id:       { type: integer(4), notnull: true }
+    product_id:       { type: integer(4), notnull: true }
+  relations:
+    Project: { class: Project, local: project_id, foreign: id, foreignAlias: Projects, onDelete: no action, onUpdate: no action }
+  indexes:
+    fk_p2p_project:       { fields: [project_id] }
+    fk_p2p_product:       { fields: [product_id] }
+    fk_p2p_project_group: { fields: [project_group_id] }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+TestEnvironment:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  test_environment
+  columns:
+    id:             { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:           { type: string(128), notnull: true }
+    description:    { type: text }
+    cpu:            { type: string(45) }
+    board:          { type: string(128) }
+    gpu:            { type: string(45) }
+    other_hardware: { type: text }
+    name_slug:      { type: string(255), notnull: true, unique: true }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+Image:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  image
+  columns:
+    id:           { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:         { type: string(255), notnull: true }
+    description:  { type: text }
+    os:           { type: string(45) }
+    distribution: { type: string(45) }
+    version:      { type: string(45) }
+    kernel:       { type: string(45) }
+    architecture: { type: string(45) }
+    other_fw:     { type: text }
+    binary_link:  { type: string(255) }
+    source_link:  { type: string(255) }
+    name_slug:    { type: string(255), notnull: true, unique: true }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+Configuration:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  configuration
+  columns:
+    id:                    { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    image_id:              { type: integer(4), notnull: true }
+    test_environment_id:   { type: integer(4), notnull: true }
+    project_to_product_id: { type: integer(4), notnull: true }
+  relations:
+    Image:            { class: Image, local: image_id, foreign: id, foreignAlias: Images, onDelete: no action, onUpdate: no action }
+    TestEnvironment:  { class: TestEnvironment, local: test_environment_id, foreign: id, foreignAlias: TestEnvironments, onDelete: no action, onUpdate: no action }
+    ProjectToProduct: { class: ProjectToProduct, local: project_to_product_id, foreign: id, foreignAlias: ProjectToProducts, onDelete: no action, onUpdate: no action }
+  indexes:
+    fk_configuration_image1:            { fields: [image_id] }
+    fk_configuration_test_environment1: { fields: [test_environment_id] }
+    fk_configuration_p2p1:              { fields: [project_to_product_id] }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+TestSession:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  test_session
+  columns:
+    id:                { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    build_id:          { type: string(128) }
+    testset:           { type: string(128) }
+    name:              { type: string(255), notnull: true }
+    test_objective:    { type: text }
+    qa_summary:        { type: text }
+    user_id:           { type: integer(4), notnull: true }
+    created_at:        { type: timestamp, notnull: true }
+    editor_id:         { type: integer(4) }
+    updated_at:        { type: timestamp }
+    project_release:   { type: string(45) }
+    project_milestone: { type: integer(4) }
+    issue_summary:     { type: text }
+    ## Status:
+    #   0: Not started
+    #   1: In progress
+    #   2: Done
+    #   3: Stopped
+    #   4: Go
+    #   5: No go
+    status:            { type: integer(4), notnull: true }
+    ## Published:
+    #   0: Hidden
+    #   1: Diplayed
+    published:         { type: integer(1), notnull: true, default: 1 }
+    configuration_id:  { type: integer(4), notnull: true }
+    campaign_checksum: { type: string(255) }
+    build_slug:        { type: string(128) }
+    testset_slug:      { type: string(128) }
+    notes:             { type: text }
+  relations:
+    Configuration: { class: Configuration, local: configuration_id, foreign: id, foreignAlias: Configurations, onDelete: no action, onUpdate: no action }
+  indexes:
+    fk_test_session_configuration1: { fields: [configuration_id] }
+    idx_build_id:                   { fields: [build_id] }
+    idx_testset:                    { fields: [testset] }
+    idx_campaign_checksum:          { fields: [campaign_checksum] }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+TestResult:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  test_result
+  columns:
+    id:                   { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:                 { type: string(255), notnull: true }
+    complement:           { type: string(255) }
+    test_session_id:      { type: integer(4), notnull: true }
+    ## Decisions:
+    #   -1: Pass
+    #   -2: Fail
+    #   -3: Block
+    #   -4: Deferred
+    #   -5: Not run
+    decision_criteria_id: { type: integer(4) }
+    comment:              { type: text }
+    started_at:           { type: timestamp, notnull: true }
+    execution_time:       { type: integer(4) }
+    ## Status:
+    #   0: Complete
+    #   1: In progress
+    #   2: Paused
+    #   3: Blocked
+    #   4: Incomplete
+    #   5: Error
+    status:               { type: integer(4), notnull: true }
+    bugs:                 { type: text }
+  relations:
+    TestSession: { class: TestSession, local: test_session_id, foreign: id, foreignAlias: TestSessions, onDelete: CASCADE, onUpdate: no action }
+  indexes:
+    fk_test_result_test_session1: { fields: [test_session_id] }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+Measure:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  measure
+  columns:
+    id:             { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    test_result_id: { type: integer(4), notnull: true }
+    value:          { type: string(45), notnull: true }
+    unit:           { type: string(45), notnull: true }
+    description:    { type: text }
+    ## Categories:
+    #   1: Value
+    #   2: Target
+    #   3: Limit
+    category:       { type: integer(4), notnull: true }
+    ## Operators:
+    #   1: None
+    #   2: Equal
+    #   3: Not equal
+    #   4: Greather than
+    #   5: Lesser than
+    #   6: Greather equal
+    #   7: Lesser equal
+    operator:       { type: integer(4) }
+    measure_id:     { type: integer(4) }
+  relations:
+    TestResult: { class: TestResult, local: test_result_id, foreign: id, foreignAlias: TestResults, onDelete: CASCADE, onUpdate: no action }
+    Measure:    { class: Measure, local: measure_id, foreign: id, foreignAlias: Measures, onDelete: CASCADE, onUpdate: no action }
+  indexes:
+    fk_measure_test_result: { fields: [test_result_id] }
+    fk_measure_measure:     { fields: [measure_id] }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+TableName:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  table_name
+  columns:
+    id:   { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name: { type: string(128), notnull: true }
+  indexes:
+    idx_table_name_name: { fields: [name] }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+ComplementaryToolRelation:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  complementary_tool_relation
+  columns:
+    id:                    { type: integer(4) , primary: true , notnull: true , autoincrement: true }
+    label:                 { type: string(128) , notnull: true }
+    table_name_id:         { type: integer(4) , notnull: true }
+    table_entry_id:        { type: integer(4) , notnull: true }
+    complementary_tool_id: { type: integer(4) , notnull: true }
+    tool_key:              { type: string(255) , notnull: true }
+    category:              { type: integer(4) , notnull: true }
+  relations:
+    TableName: { class: TableName , local: table_name_id , foreign: id , foreignAlias: TableNames , onDelete: no action , onUpdate: no action }
+  indexes:
+    fk_complementary_tool_relation_table_name1:     { fields: [table_name_id] }
+    idx_complementary_tool_relation_table_entry_id: { fields: [table_entry_id] }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+SearchTagRelation:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  search_tag_relation
+  columns:
+    id:             { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    table_name_id:  { type: integer(4), notnull: true }
+    table_entry_id: { type: integer(4), notnull: true }
+    search_tag_id:  { type: integer(4), notnull: true }
+  relations:
+    TableName: { class: TableName, local: table_name_id, foreign: id, foreignAlias: TableNames, onDelete: no action, onUpdate: no action }
+  indexes:
+    fk_search_tag_relation_table_name1:     { fields: [table_name_id] }
+    idx_search_tag_relation_table_entry_id: { fields: [table_entry_id] }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+FileAttachment:
+  package:    qa.generic
+  connection: qa_generic
+  tableName:  file_attachment
+  columns:
+    id:             { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:           { type: string(128), notnull: true }
+    comment:        { type: text }
+    user_id:        { type: integer(4), notnull: true }
+    uploaded_at:    { type: timestamp, notnull: true }
+    filename:       { type: string(128), notnull: true }
+    file_size:      { type: integer(8), notnull: true }
+    file_mime_type: { type: string(128), notnull: true }
+    link:           { type: string(255), notnull: true }
+    checksum:       { type: string(64), notnull: true }
+    table_name_id:  { type: integer(4), notnull: true }
+    table_entry_id: { type: integer(4), notnull: true }
+    # Categories:
+    #   1: Test report
+    #   2: Attachment
+    category: { type: integer(4), notnull: true }
+  relations:
+    TableName: { class: TableName, local: table_name_id, foreign: id, foreignAlias: TableNames, onDelete: no action, onUpdate: no action }
+  indexes:
+    fk_file_attachment_table1:           { fields: [table_name_id] }
+    idx_file_attachement_table_entry_id: { fields: [table_entry_id] }
+  options:
+    charset: utf8
+    type:    InnoDB

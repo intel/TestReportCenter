@@ -1,0 +1,22 @@
+#this will apply custom_layout to all views of the module
+#all:
+#  layout: custom_layout
+
+#this will apply print_layout to the printSuccess view
+printSuccess:
+  layout: print
+
+printBuildSuccess:
+  layout: print
+
+updateResultSuccess:
+  layout: popup
+
+updateMeasureSuccess:
+  layout: popup
+
+updateEnvironmentSuccess:
+  layout: popup
+
+updateImageSuccess:
+  layout: popup

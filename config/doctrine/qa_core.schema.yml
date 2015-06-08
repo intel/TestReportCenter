@@ -1,0 +1,86 @@
+connection:         qa_core
+options:
+  charset:          utf8
+  type:             InnoDB
+  package:          qa.core
+  connection:       qa_core
+  detect_relations: true
+
+DbHistory:
+  package:    qa.core
+  connection: qa_core
+  tableName:  db_history
+  columns:
+    version:    { type: string(128), primary: true, notnull: true }
+    comment:    { type: text, notnull: true }
+    changed_at: { type: timestamp, notnull: true }
+    user_id:    { type: integer(4), notnull: true }
+  relations:
+    User: { class: sfGuardUser, local: user_id, foreign: id, foreignAlias: Users, onDelete: no action, onUpdate: no action }
+  indexes:
+    fk_core_db_history_core_user: { fields: [user_id] }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+sfGuardUserProfile:
+  package:    qa.core
+  connection: qa_core
+  columns:
+    id:             { type: integer(4), primary: true, autoincrement: true }
+    user_id:        { type: integer(4), notnull: true }
+    token:          { type: string(255) }
+    security_level: { type: integer(1), notnull: true, default: 0 }
+  relations:
+    User: { class: sfGuardUser, local: user_id, foreign: id, type: one, foreignType: one, foreignAlias: Profile }
+
+ProductType:
+  package:    qa.core
+  connection: qa_core
+  tableName:  product_type
+  columns:
+    id:          { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:        { type: string(45), notnull: true }
+    description: { type: text }
+    name_slug:   { type: string(255), notnull: true, unique: true }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+ComplementaryTool:
+  package:    qa.core
+  connection: qa_core
+  tableName:  complementary_tool
+  columns:
+    id:          { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:        { type: string(128), notnull: true }
+    version:     { type: string(45) }
+    description: { type: text, notnull: true }
+    entry_link:  { type: string(255), notnull: true }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+DecisionCriteria:
+  package:    qa.core
+  connection: qa_core
+  tableName:  decision_criteria
+  columns:
+    id:          { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:        { type: string(45), notnull: true }
+    description: { type: string(128), notnull: true }
+    sql_request: { type: text }
+  options:
+    charset: utf8
+    type:    InnoDB
+
+SearchTag:
+  package:    qa.core
+  connection: qa_core
+  tableName:  search_tag
+  columns:
+    id:       { type: integer(4), primary: true, notnull: true, autoincrement: true }
+    name:     { type: string(45), notnull: true }
+  options:
+    charset: utf8
+    type:    InnoDB

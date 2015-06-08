@@ -1,0 +1,188 @@
+Additional steps for Apache server.
+It is necessary to add a virtual host to your apache configuration.
+
+Here is a sample, but it depends on your distribution.
+
+Considering an apache server configured like:
+http://my_server.address.com/
+On Opensuse, we are adding a file TestReportServer.conf (it should be somewhat equivalent on other distributions).
+
+<VirtualHost my_server.address.com:80>
+    ServerAdmin test-report-center@my_server.address.com
+    ServerName my_server.address.com
+
+    # DocumentRoot: The directory out of which you will serve your
+    # documents. By default, all requests are taken from this directory, but
+    # symbolic links and aliases may be used to point to other locations.
+    DocumentRoot /PATH_TO_SERVER_ROOT
+
+    # if not specified, the global error log is used
+    ErrorLog /var/log/apache2/my_file-error.log
+    CustomLog /var/log/apache2/my_file-access.log combined
+
+    # don't loose time with IP address lookups
+    HostnameLookups Off
+
+    # needed for named virtual hosts
+    UseCanonicalName Off
+
+    # configures the footer on server-generated documents
+    ServerSignature On
+
+    # Optionally, include *.conf files from /etc/apache2/conf.d/
+    #
+    # For example, to allow execution of PHP scripts:
+    #
+    # Include /etc/apache2/conf.d/php5.conf
+    #
+    # or, to include all configuration snippets added by packages:
+    # Include /etc/apache2/conf.d/*.conf
+
+    # ScriptAlias: This controls which directories contain server scripts.
+    # ScriptAliases are essentially the same as Aliases, except that
+    # documents in the realname directory are treated as applications and
+    # run by the server when requested rather than as documents sent to the client.
+    # The same rules about trailing "/" apply to ScriptAlias directives as to
+    # Alias.
+    #
+    ScriptAlias /cgi-bin/ "/srv/www/vhosts/dummy-host.example.com/cgi-bin/"
+
+    # "/srv/www/cgi-bin" should be changed to whatever your ScriptAliased
+    # CGI directory exists, if you have one, and where ScriptAlias points to.
+    #
+
+    Alias /sf "/PATH_TO_SERVER_ROOT/My_Project/lib/vendor/symfony/data/web/sf"
+    Alias / "/PATH_TO_SERVER_ROOT/My_Project/web"
+    <Directory "/PATH_TO_SERVER_ROOT/My_Project/web">
+        AllowOverride All
+        Allow from All
+     </Directory>
+
+     <Directory "/PATH_TO_SERVER_ROOT/My_Project/lib/vendor/symfony/data/web/sf">
+        AllowOverride All
+        Allow from All
+     </Directory>
+
+</VirtualHost>
+
+
+Once done, we just have to restart the server.
+
+If multiple instances are needed on the same server, you need to get multiple virtual host or use an alias for each of them like below but also modify ".htaccess" file (see after "conf" file):
+
+http://my_server.address.com/instance_1
+http://my_server.address.com/instance_2
+...
+
+TestReportServer.conf:
+_________________________________________________________________
+<VirtualHost my_server.address.com:80>
+    ServerAdmin test-report-center@my_server.address.com
+    ServerName my_server.address.com
+
+    # DocumentRoot: The directory out of which you will serve your
+    # documents. By default, all requests are taken from this directory, but
+    # symbolic links and aliases may be used to point to other locations.
+    DocumentRoot /PATH_TO_SERVER_ROOT
+
+    # if not specified, the global error log is used
+    ErrorLog /var/log/apache2/my_file-error.log
+    CustomLog /var/log/apache2/my_file-access.log combined
+
+    # don't loose time with IP address lookups
+    HostnameLookups Off
+
+    # needed for named virtual hosts
+    UseCanonicalName Off
+
+    # configures the footer on server-generated documents
+    ServerSignature On
+
+    # Optionally, include *.conf files from /etc/apache2/conf.d/
+    #
+    # For example, to allow execution of PHP scripts:
+    #
+    # Include /etc/apache2/conf.d/php5.conf
+    #
+    # or, to include all configuration snippets added by packages:
+    # Include /etc/apache2/conf.d/*.conf
+
+    # ScriptAlias: This controls which directories contain server scripts.
+    # ScriptAliases are essentially the same as Aliases, except that
+    # documents in the realname directory are treated as applications and
+    # run by the server when requested rather than as documents sent to the client.
+    # The same rules about trailing "/" apply to ScriptAlias directives as to
+    # Alias.
+    #
+    ScriptAlias /cgi-bin/ "/srv/www/vhosts/dummy-host.example.com/cgi-bin/"
+
+    # "/srv/www/cgi-bin" should be changed to whatever your ScriptAliased
+    # CGI directory exists, if you have one, and where ScriptAlias points to.
+    #
+
+    Alias /instance_1/sf "/PATH_TO_SERVER_ROOT/instance_1/lib/vendor/symfony/data/web/sf"
+    Alias /instance_1 "/PATH_TO_SERVER_ROOT/instance_1/web"
+    <Directory "/PATH_TO_SERVER_ROOT/instance_1/web">
+        AllowOverride All
+        Allow from All
+     </Directory>
+     <Directory "/PATH_TO_SERVER_ROOT/instance_1/lib/vendor/symfony/data/web/sf">
+        AllowOverride All
+        Allow from All
+     </Directory>
+
+    Alias /instance_2/sf "/PATH_TO_SERVER_ROOT/instance_2/lib/vendor/symfony/data/web/sf"
+    Alias /instance_2 "/PATH_TO_SERVER_ROOT/instance_2/web"
+    <Directory "/PATH_TO_SERVER_ROOT/instance_2/web">
+        AllowOverride All
+        Allow from All
+     </Directory>
+     <Directory "/PATH_TO_SERVER_ROOT/instance_2/lib/vendor/symfony/data/web/sf">
+        AllowOverride All
+        Allow from All
+     </Directory>
+
+</VirtualHost>
+_________________________________________________________________
+
+.htaccess file in: /PATH_TO_SERVER_ROOT/instance_1/web/
+_________________________________________________________________
+Options +FollowSymLinks +ExecCGI
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # uncomment the following line, if you are having trouble
+  # getting no_script_name to work
+  #RewriteBase /
+
+  # we skip all files with .something
+  #RewriteCond %{REQUEST_URI} \..+$
+  #RewriteCond %{REQUEST_URI} !\.html$
+  #RewriteRule .* - [L]
+
+  # we check if the .html version is here (caching)
+  RewriteRule ^$ index.html [QSA]
+  RewriteRule ^([^.]+)$ $1.html [QSA]
+  RewriteCond %{REQUEST_FILENAME} !-f
+
+  # no, so we redirect to our front web controller
+  RewriteRule ^(.*)$ /instance_1/index.php [QSA,L]      <------------ this line to be updated.
+</IfModule>
+_________________________________________________________________
+
+Some addional configuration information for MySQL and PHP below:
+1: MySQL:
+Use /usr/share/mysql/my-huge.cnf as a baseline for mysql dabase (my.cnf file)
+
+2: PHP:
+Update /etc/php5/apache2/php.ini: (should be this one, to be checked with php5 installation and apache server)
+user_ini.cache_ttl = 1800 (default 300) not activated by default, must remove ";" in front of it
+realpath_cache_ttl=86400 (default 120) not activated by default, must remove ";" in front of it
+max_execution_time = 600 (default 30) not activated by default, must remove ";" in front of it
+max_input_time = 600 (default 60)
+memory_limit = 8000M (was 128M, but depends on server memory, the more the better 8 Gb recommended at least)
+post_max_size = 750M (was 8M)
+upload_max_size = 750M (was 2M)
+max_file_uploads = 150 (was 20, however, depending on total number of files (attachements and test reports) you need to upload, you can increase or decrease this)
+session.gc_maxlifetime = 3600 (was 1440)

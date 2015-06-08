@@ -1,0 +1,15 @@
+sfGuardUser:
+  columns:
+    # Used to validate account creation and password changes
+    validate:
+      type: string(17)
+    # Copied verbatim from the new trunk version of sfDoctrineGuardPlugin.
+    # Declaring them here too provides forwards and backwards compatibility:
+    # if you are using sfDoctrineGuardPlugin 1.4 you need them here, if you are 
+    # using the trunk they just merge safely with what's already there
+    first_name: string(255)
+    last_name: string(255)
+    email_address:
+      type: string(255)
+      notnull: true
+      unique: true

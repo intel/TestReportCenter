@@ -1,0 +1,1 @@
+<?php echo MiscUtils::timeBetween($sf_guard_user->getLastLogin()); ?>

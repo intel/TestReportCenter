@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testresults version="1.0" environment="hardware" hwproduct="RX-71" hwbuild="0720">
+ <suite name="mwts-sim-tests" domain="System">
+  <set name="Functional" description="Functional testing of SIM services" feature="SIM" environment="hardware">
+   <case name="SMOKE-SIM-Query_SIM_card_status" description="Purpose          This test case reads basic SIM status query.         Method         Uses Cellular-Qt API to get SIM status.         Pre-/Post-Conditions         SIM card inserted to device.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Identity" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Query_SIM_card_status'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-07-01 15:15:34</start>
+     <end>2010-07-01 15:15:37</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+12:15:37 Passed     scripter.so:&quot;SMOKE-SIM-Query_SIM_card_status&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Get_IMSI" description="Purpose          This test case reads SIM cards IMSI.         Method         Uses Cellular-Qt API to get IMSI.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="FAIL" subfeature="Identity" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Get_IMSI'" result="FAIL">
+     <expected_result>0</expected_result>
+     <return_code>1</return_code>
+     <start>2010-07-01 15:15:37</start>
+     <end>2010-07-01 15:15:40</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+12:15:39 Failed     scripter.so:&quot;SMOKE-SIM-Get_IMSI&quot; - Test Method call sim.GetSimIMSI (retval 22)  FAILED (1 other errors/failures)
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Query_Service_Provider_name" description="Purpose          This test case reads Service Provider Name from SIM card.         Method         Uses Cellular-Qt API to get SPN.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="FAIL" subfeature="Identity" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Query_Service_Provider_name'" result="FAIL">
+     <expected_result>0</expected_result>
+     <return_code>1</return_code>
+     <start>2010-07-01 15:15:40</start>
+     <end>2010-07-01 15:15:42</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+12:15:42 Failed     scripter.so:&quot;SMOKE-SIM-Query_Service_Provider_name&quot; - Test Method call sim.GetSimSPN (retval 22)  FAILED (1 other errors/failures)
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Read_HPLMN" description="Purpose          This test case reads Home Public Land Mobile Name from SIM card.         Method         Uses Cellular-Qt API to get HPLMN.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="FAIL" subfeature="Identity" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Read_HPLMN'" result="FAIL">
+     <expected_result>0</expected_result>
+     <return_code>1</return_code>
+     <start>2010-07-01 15:15:42</start>
+     <end>2010-07-01 15:15:46</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+12:15:45 Failed     scripter.so:&quot;SMOKE-SIM-Read_HPLMN&quot; - Test Method call sim.GetSimHPLMN (retval 22)  FAILED (1 other errors/failures)
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Get_Languages" description="Purpose          This test case reads languages from SIM card.         Method         Uses Cellular-Qt API to get languages.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Identity" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Get_Languages'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-07-01 15:15:46</start>
+     <end>2010-07-01 15:15:48</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+12:15:48 Passed     scripter.so:&quot;SMOKE-SIM-Get_Languages&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Get_PIN_state" description="Purpose          This test case reads PIN state from SIM card.         Method         Uses Cellular-Qt API to get languages.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Security" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Get_PIN_state'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-07-01 15:15:48</start>
+     <end>2010-07-01 15:15:52</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+12:15:52 Passed     scripter.so:&quot;SMOKE-SIM-Get_PIN_state&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Disable_and_enable_PIN_query" description="Purpose          This test case disables and enables pin query.         Method         Uses Cellular-Qt API to enable/disable pin query.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Security" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Disable_and_enable_PIN_query'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-07-01 15:15:52</start>
+     <end>2010-07-01 15:16:03</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+12:16:03 Passed     scripter.so:&quot;SMOKE-SIM-Disable_and_enable_PIN_query&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Verify_PIN" description="Purpose          This test case verifies pin code.         Method         Uses Cellular-Qt API to verify pin code.         Pre-/Post-Conditions         SIM card inserted to device.         Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Security" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Verify_PIN'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-07-01 15:16:03</start>
+     <end>2010-07-01 15:16:06</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+12:16:06 Passed     scripter.so:&quot;SMOKE-SIM-Verify_PIN&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Change_PIN" description="Purpose          This test case changes SIM card's pin code.         Method         Uses Cellular-Qt API to change pin code. Test cases changes pin code back to original.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Security" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Change_PIN'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-07-01 15:16:06</start>
+     <end>2010-07-01 15:16:09</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+12:16:09 Passed     scripter.so:&quot;SMOKE-SIM-Change_PIN&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Get_available_PIN_attempts" description="Purpose          This test case reads avaiable pin attempts.         Method         Uses Cellular-Qt API to read attempts.         Pre-/Post-Conditions         SIM card inserted to device.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Security" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Get_available_PIN_attempts'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-07-01 15:16:09</start>
+     <end>2010-09-10 14:29:05</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+03:16:14 Passed     scripter.so:&quot;SMOKE-SIM-Get_available_PIN_attempts&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Verify_PUK" description="Purpose          This test case verifies PUK code.         Method         Uses Cellular-Qt API to verify PUK code.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Security" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Verify_PUK'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-09-10 14:29:05</start>
+     <end>2010-09-10 14:29:08</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+02:29:07 Passed     scripter.so:&quot;SMOKE-SIM-Verify_PUK&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Get_PUK_required_notification" description="Purpose          This test case verifies that PUK code required notification will come.         Method         Uses Cellular-Qt API to verify PUK and PIN code. Test case gives false PIN code multiple times to get PUK notification.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Security" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Get_PUK_required_notification'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-09-10 14:29:08</start>
+     <end>2010-09-10 14:29:12</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+02:29:11 Passed     scripter.so:&quot;SMOKE-SIM-Get_PUK_required_notification&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Get_all_phonebook_infos" description="Purpose          This test case read SIM card's phonebook information.         Method         Uses Cellular-Qt API to read phonebook information.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Phonebook" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Get_all_phonebook_infos'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-09-10 14:29:12</start>
+     <end>2010-09-10 14:29:15</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+02:29:15 Passed     scripter.so:&quot;SMOKE-SIM-Get_all_phonebook_infos&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Write_read_and_delete_ADN_phonebook_entry" description="Purpose          This test case writes and deletes one ADN phonebook entry.         Method         Uses Cellular-Qt API to write and delete the phonebook entry.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Phonebook" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Write_read_and_delete_ADN_phonebook_entry'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-09-10 14:29:15</start>
+     <end>2010-09-10 14:29:18</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+02:29:18 Passed     scripter.so:&quot;SMOKE-SIM-Write_read_and_delete_ADN_phonebook_entry&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Update_ADN_phonebook_entry" description="Purpose          This test case updates ADN phonebook entry.         Method         Uses Cellular-Qt API to update the phonebook entry.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Phonebook" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Update_ADN_phonebook_entry'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-09-10 14:29:18</start>
+     <end>2010-09-10 14:29:23</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+02:29:22 Passed     scripter.so:&quot;SMOKE-SIM-Update_ADN_phonebook_entry&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+   <case name="SMOKE-SIM-Disable_PIN_query" description="Purpose          This test case disables PIN query.         Method         Uses Cellular-Qt API to disable PIN query.         Pre-/Post-Conditions         SIM card inserted to device and pin code entered.          Pass/Fail Criteria         MIN returns passed/failed.         " manual="false" insignificant="false" result="PASS" subfeature="Phonebook" level="Feature">
+    <step command="min -c -t 'SMOKE-SIM-Disable_PIN_query'" result="PASS">
+     <expected_result>0</expected_result>
+     <return_code>0</return_code>
+     <start>2010-09-10 14:29:23</start>
+     <end>2010-09-10 14:29:26</end>
+     <stdout>MIN Test Framework, © Nokia 2008,2009,2010 All rights reserved,
+licensed under the Gnu General Public License version 2,
+Contact: min-support@lists.sourceforge.net
+
+02:29:25 Passed     scripter.so:&quot;SMOKE-SIM-Disable_PIN_query&quot; - Scripted test case passed
+</stdout>
+     <stderr></stderr>
+</step>
+</case>
+</set>
+</suite>
+</testresults>

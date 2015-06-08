@@ -1,0 +1,5 @@
+Component,Name,Status,Feature,Description,Comment,Bug,Measurement Name,Value,Unit,Target,Failure
+My feature name 1,TestCase name 1,failed,Feature info not displayed,Description1,Comment1,[[JRA-1(internal)]],Length,12,ms,10,13
+My feature name 2,TestCase name 2,Pass,Feature info not displayed,Test steps or comments,Note on Passing test,[[BUG-1]],,,,,
+My feature name 2,TestCase name 3,Fail,Feature info not displayed,Test steps or comments,Note on Failing test,[[BUG-1]],,,,,
+My feature name 2,TestCase name 4,Block,Feature info not displayed,Test steps or comments,Note on Blocking test,[[BUG-1]],,,,,

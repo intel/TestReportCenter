@@ -1,0 +1,193 @@
+
+#=============================================================================#
+#    ABOUT                                                                    #
+#=============================================================================#
+
+Person in charge:
+  - Christophe Sureau <christophe.sureau@intel.com>
+
+Developers:
+  - Julian Dumez <julianx.dumez@intel.com>
+  - Sebastien Boeuf <sebastien.boeuf@intel.com>
+
+
+#=============================================================================#
+#    PREREQUISITES                                                            #
+#=============================================================================#
+
+This application is based on web framework Symfony 1.4.x and PHP5. It would be
+easy for any person with basic comprehension of PHP OO and MVC web frameworks
+to read and edit source code.
+
+And as far as Symfony works as a library and is included in application, there
+is no need to download and/or install it.
+
+1. Third-party softwares
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+ - PHP5+
+ - MySQL
+ - Apache2
+ - phpMyAdmin (recommended)
+
+2. Packages
+~~~~~~~~~~~
+
+Debian packages:
+
+	$ sudo apt-get install php5 apache2 mysql-server apache2 phpmyadmin
+
+Additional packages:
+
+	$ sudo apt-get install php5-ldap sendmail
+
+3. Third-party licenses
+~~~~~~~~~~~~~~~~~~~~~~~
+
+This software also includes some libraries and components released under MIT
+and GPL licenses. These licenses are available in file headers or in independant
+license file located next to their libraries.
+
+Components used in this application are:
+
+ - Symfony -- MIT license
+ - JQuery -- MIT license
+ - JQuery UI -- MIT license
+ - Bluff -- GPL and MIT licenses
+ - QaReports -- GPL license
+
+
+#=============================================================================#
+#    INSTALLATION                                                             #
+#=============================================================================#
+
+Move this application to your www/ or htdocs/ server's directory.
+
+1. Application configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Check basic PHP configuration with given configuration checker:
+
+	$ php ./lib/vendor/symfony/data/bin/check_configuration.php
+
+Create following directories:
+
+	$ mkdir cache/ log/
+	$ chmod 777 cache/ log/ web/uploads/
+
+Create symlink:
+
+	$ cd web/
+	$ ln -s ../lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/web sfDoctrinePlugin
+
+Customize settings files:
+
+ - config/databases.yml
+ - config/app.yml
+
+At last, build databases through Symfony command line:
+
+	$ symfony doctrine:build --all
+
+A minimum dataset is required in the database to use the application. You can
+add these entries by hand, but I don't recommend, because it requires a good
+comprehension of MySQL databases and of the application's data model.
+
+So I strongly recommend that you run the following command line, which will add
+this minimum dataset for you:
+
+	$ symfony doctrine:build --all --and-load
+
+You can at least configure values of this minimum dataset in the file:
+
+	data/fixtures/fixtures.yml
+
+/!\ Be careful, these two last steps will drop databases (if exist) identified
+in config/databases.yml
+
+2. Database migration
+~~~~~~~~~~~~~~~~~~~~~
+
+It is possible to migrate database from an old QaReports to this DB application.
+Contact people in charge to get more informations...
+
+3. Configuring emails
+~~~~~~~~~~~~~~~~~~~~~
+
+Email configuration can be done in:
+
+	config/factories.yml
+
+4. Configuring cookies
+~~~~~~~~~~~~~~~~~~~~~~
+
+Cookies are important if you plan to run multiple instance of TRC on the
+same server.
+Each cookie name have to be unique in order to manage correctly sessions.
+
+See "storage" section of following file:
+
+	config/factories.yml
+
+Variable "session_name" contains the name of the cookie.
+
+
+#=============================================================================#
+#    CONFIGURATION                                                            #
+#=============================================================================#
+
+1. Enable mod_rewrite and URL rewriting
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To enable mod_rewrite in your Apache server, run:
+
+    # a2enmod rewrite
+    # service apache2 restart
+
+Then edit apps/frontend/config/settings.yml and set no_script_name option to true for
+your production environment:
+
+prod:
+  .settings:
+    no_script_name:         true
+
+2. Update .htaccess
+~~~~~~~~~~~~~~~~~~~
+
+If your instance of QaReports have an URL like :
+
+    http://your-server-hostname/trc
+
+You will have to edit web/.htaccess to add the directory name to the rewrite rule:
+
+l.21    RewriteRule ^(.*)$ /trc/index.php [QSA,L]
+
+3. Fields' templates
+~~~~~~~~~~~~~~~~~~~~
+
+TRC can provide already filled information for some fields like QA Summary, Environment Summary, ...
+For this you need to do those additioanl steps:
+
+a. Edit config file in:
+
+    apps/frontend/config/app.yml
+
+Example:
+
+    all:
+      .array:
+        # Prefill form fields with templates located in TRC_ROOT_DIR/web/templates/
+        # Naming convention:
+        #    <template_FIELD_NAME>: _file_name.txt
+        prefill_templates:
+          template_qa_summary: _qa_summary.txt
+          template_environment_summary: _my_env_summary.txt
+
+b. Templates have to be located in:
+
+    TRC_ROOT_DIR/web/templates/
+      _qa_summary.txt
+      _my_env_summary.txt
+
+c. If already running instance, you need to clear the cache:
+	$ symfony cc

@@ -1,0 +1,5 @@
+error404Success:
+  layout: error
+
+error403Success:
+  layout: error

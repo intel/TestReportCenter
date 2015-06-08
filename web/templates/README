@@ -1,0 +1,4 @@
+Templates must have their matching file's names declared in apps/frontend/config/app.yml:
+_qa_summary.txt
+_my_env_summary.txt
+...

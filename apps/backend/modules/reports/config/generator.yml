@@ -1,0 +1,36 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           TestSession
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          test_session
+    with_doctrine_route:   true
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        created_at: { date_format: y/MM/dd HH:mm:ss }
+        updated_at: { date_format: y/MM/dd HH:mm:ss }
+      list:
+        title: Reports list
+        display: [id, build_id, testset, name, _user_id, created_at, _editor_id, updated_at, status, published, _configuration_id]
+        max_per_page: 20
+        batch_actions:
+          delete:             { label: Hide }
+          delete_permanently: { label: Delete permanently }
+        object_actions:
+          _edit:              ~
+          delete:             { label: Hide }
+          delete_permanently: { label: Delete, params: confirm=Are you sure? }
+      filter:
+        display: [id, build_id, testset, username, created_at, editor, updated_at, status, published, configuration_id, build_slug, testset_slug]
+      form:    ~
+      edit:
+        title: Editing report "%%name%%"
+      new:
+        title: Adding a new report
