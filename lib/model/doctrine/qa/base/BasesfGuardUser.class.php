@@ -25,8 +25,8 @@ Doctrine_Manager::getInstance()->bindComponent('sfGuardUser', 'qa_core');
  * @property Doctrine_Collection $sfGuardUserGroup
  * @property sfGuardRememberKey $RememberKeys
  * @property sfGuardForgotPassword $ForgotPassword
- * @property sfGuardUserProfile $Profile
  * @property Doctrine_Collection $Users
+ * @property sfGuardUserProfile $Profile
  * 
  * @method integer               getId()                    Returns the current record's "id" value
  * @method string                getFirstName()             Returns the current record's "first_name" value
@@ -46,8 +46,8 @@ Doctrine_Manager::getInstance()->bindComponent('sfGuardUser', 'qa_core');
  * @method Doctrine_Collection   getSfGuardUserGroup()      Returns the current record's "sfGuardUserGroup" collection
  * @method sfGuardRememberKey    getRememberKeys()          Returns the current record's "RememberKeys" value
  * @method sfGuardForgotPassword getForgotPassword()        Returns the current record's "ForgotPassword" value
- * @method sfGuardUserProfile    getProfile()               Returns the current record's "Profile" value
  * @method Doctrine_Collection   getUsers()                 Returns the current record's "Users" collection
+ * @method sfGuardUserProfile    getProfile()               Returns the current record's "Profile" value
  * @method sfGuardUser           setId()                    Sets the current record's "id" value
  * @method sfGuardUser           setFirstName()             Sets the current record's "first_name" value
  * @method sfGuardUser           setLastName()              Sets the current record's "last_name" value
@@ -66,8 +66,8 @@ Doctrine_Manager::getInstance()->bindComponent('sfGuardUser', 'qa_core');
  * @method sfGuardUser           setSfGuardUserGroup()      Sets the current record's "sfGuardUserGroup" collection
  * @method sfGuardUser           setRememberKeys()          Sets the current record's "RememberKeys" value
  * @method sfGuardUser           setForgotPassword()        Sets the current record's "ForgotPassword" value
- * @method sfGuardUser           setProfile()               Sets the current record's "Profile" value
  * @method sfGuardUser           setUsers()                 Sets the current record's "Users" collection
+ * @method sfGuardUser           setProfile()               Sets the current record's "Profile" value
  * 
  * @package    trc
  * @subpackage model
@@ -177,11 +177,11 @@ abstract class BasesfGuardUser extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'user_id'));
 
-        $this->hasOne('sfGuardUserProfile as Profile', array(
+        $this->hasMany('DbHistory as Users', array(
              'local' => 'id',
              'foreign' => 'user_id'));
 
-        $this->hasMany('DbHistory as Users', array(
+        $this->hasOne('sfGuardUserProfile as Profile', array(
              'local' => 'id',
              'foreign' => 'user_id'));
 

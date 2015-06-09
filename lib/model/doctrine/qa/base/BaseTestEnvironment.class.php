@@ -52,25 +52,25 @@ abstract class BaseTestEnvironment extends sfDoctrineRecord
              'autoincrement' => true,
              'length' => 4,
              ));
-        $this->hasColumn('name', 'string', 128, array(
+        $this->hasColumn('name', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'length' => 128,
+             'length' => 255,
              ));
         $this->hasColumn('description', 'text', null, array(
              'type' => 'text',
              ));
-        $this->hasColumn('cpu', 'string', 45, array(
+        $this->hasColumn('cpu', 'string', 255, array(
              'type' => 'string',
-             'length' => 45,
+             'length' => 255,
              ));
-        $this->hasColumn('board', 'string', 128, array(
+        $this->hasColumn('board', 'string', 255, array(
              'type' => 'string',
-             'length' => 128,
+             'length' => 255,
              ));
-        $this->hasColumn('gpu', 'string', 45, array(
+        $this->hasColumn('gpu', 'string', 255, array(
              'type' => 'string',
-             'length' => 45,
+             'length' => 255,
              ));
         $this->hasColumn('other_hardware', 'text', null, array(
              'type' => 'text',

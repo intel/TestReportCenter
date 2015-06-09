@@ -72,25 +72,25 @@ abstract class BaseImage extends sfDoctrineRecord
         $this->hasColumn('description', 'text', null, array(
              'type' => 'text',
              ));
-        $this->hasColumn('os', 'string', 45, array(
+        $this->hasColumn('os', 'string', 255, array(
              'type' => 'string',
-             'length' => 45,
+             'length' => 255,
              ));
-        $this->hasColumn('distribution', 'string', 45, array(
+        $this->hasColumn('distribution', 'string', 255, array(
              'type' => 'string',
-             'length' => 45,
+             'length' => 255,
              ));
-        $this->hasColumn('version', 'string', 45, array(
+        $this->hasColumn('version', 'string', 255, array(
              'type' => 'string',
-             'length' => 45,
+             'length' => 255,
              ));
-        $this->hasColumn('kernel', 'string', 45, array(
+        $this->hasColumn('kernel', 'string', 255, array(
              'type' => 'string',
-             'length' => 45,
+             'length' => 255,
              ));
-        $this->hasColumn('architecture', 'string', 45, array(
+        $this->hasColumn('architecture', 'string', 255, array(
              'type' => 'string',
-             'length' => 45,
+             'length' => 255,
              ));
         $this->hasColumn('other_fw', 'text', null, array(
              'type' => 'text',

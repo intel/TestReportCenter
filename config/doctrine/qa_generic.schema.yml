@@ -66,11 +66,11 @@ TestEnvironment:
   tableName:  test_environment
   columns:
     id:             { type: integer(4), primary: true, notnull: true, autoincrement: true }
-    name:           { type: string(128), notnull: true }
+    name:           { type: string(255), notnull: true }
     description:    { type: text }
-    cpu:            { type: string(45) }
-    board:          { type: string(128) }
-    gpu:            { type: string(45) }
+    cpu:            { type: string(255) }
+    board:          { type: string(255) }
+    gpu:            { type: string(255) }
     other_hardware: { type: text }
     name_slug:      { type: string(255), notnull: true, unique: true }
   options:
@@ -85,11 +85,11 @@ Image:
     id:           { type: integer(4), primary: true, notnull: true, autoincrement: true }
     name:         { type: string(255), notnull: true }
     description:  { type: text }
-    os:           { type: string(45) }
-    distribution: { type: string(45) }
-    version:      { type: string(45) }
-    kernel:       { type: string(45) }
-    architecture: { type: string(45) }
+    os:           { type: string(255) }
+    distribution: { type: string(255) }
+    version:      { type: string(255) }
+    kernel:       { type: string(255) }
+    architecture: { type: string(255) }
     other_fw:     { type: text }
     binary_link:  { type: string(255) }
     source_link:  { type: string(255) }

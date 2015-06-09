@@ -27,11 +27,11 @@ abstract class BaseTestEnvironmentForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'             => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'name'           => new sfValidatorString(array('max_length' => 128)),
+      'name'           => new sfValidatorString(array('max_length' => 255)),
       'description'    => new sfValidatorPass(array('required' => false)),
-      'cpu'            => new sfValidatorString(array('max_length' => 45, 'required' => false)),
-      'board'          => new sfValidatorString(array('max_length' => 128, 'required' => false)),
-      'gpu'            => new sfValidatorString(array('max_length' => 45, 'required' => false)),
+      'cpu'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'board'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'gpu'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'other_hardware' => new sfValidatorPass(array('required' => false)),
       'name_slug'      => new sfValidatorString(array('max_length' => 255)),
     ));
