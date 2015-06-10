@@ -54,10 +54,10 @@ class TestEnvironmentTable extends PluginTestEnvironmentTable
 		$query = "SELECT te.id, te.name, te.description, te.cpu, te.board, te.gpu, te.other_hardware, te.name_slug
 			FROM ".$qa_generic.".test_environment te
 			WHERE te.name = '".addslashes($array["name"])."'
-				AND (te.description = '".addslashes($array["description"])."' OR te.description IS NULL)
-				AND (te.cpu = '".addslashes($array["cpu"])."' OR te.cpu IS NULL)
-				AND (te.board = '".addslashes($array["board"])."' OR te.board IS NULL)
-				AND (te.other_hardware = '".addslashes($array["other_hardware"])."' OR te.other_hardware IS NULL)";
+				AND (te.description = '".addslashes($array["description"])."' OR ('' = '".addslashes($array["description"])."' AND te.description IS NULL))
+				AND (te.cpu = '".addslashes($array["cpu"])."' OR ('' = '".addslashes($array["cpu"])."' AND te.cpu IS NULL))
+				AND (te.board = '".addslashes($array["board"])."' OR ('' = '".addslashes($array["board"])."' AND te.board IS NULL))
+				AND (te.other_hardware = '".addslashes($array["other_hardware"])."' OR ('' = '".addslashes($array["other_hardware"])."' AND te.other_hardware IS NULL))";
 		$result = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($query)->fetch(PDO::FETCH_ASSOC);
 
 		if(!empty($result))

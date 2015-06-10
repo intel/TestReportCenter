@@ -54,15 +54,15 @@ class ImageTable extends PluginImageTable
 		$query = "SELECT i.id, i.name, i.description, i.os, i.distribution, i.version, i.kernel, i.architecture, i.other_fw, i.binary_link, i.source_link, i.name_slug
 			FROM ".$qa_generic.".image i
 			WHERE i.name = '".addslashes($array["name"])."'
-				AND (i.description = '".addslashes($array["description"])."' OR i.description IS NULL)
-				AND (i.os = '".addslashes($array["os"])."' OR i.os IS NULL)
-				AND (i.distribution = '".addslashes($array["distribution"])."' OR i.distribution IS NULL)
-				AND (i.version = '".addslashes($array["version"])."' OR i.version IS NULL)
-				AND (i.kernel = '".addslashes($array["kernel"])."' OR i.kernel IS NULL)
-				AND (i.architecture = '".addslashes($array["architecture"])."' OR i.architecture IS NULL)
-				AND (i.other_fw = '".addslashes($array["other_fw"])."' OR i.other_fw IS NULL)
-				AND (i.binary_link = '".addslashes($array["binary_link"])."' OR i.binary_link IS NULL)
-				AND (i.source_link = '".addslashes($array["source_link"])."' OR i.source_link IS NULL)";
+				AND (i.description = '".addslashes($array["description"])."' OR ('' = '".addslashes($array["description"])."' AND i.description IS NULL))
+				AND (i.os = '".addslashes($array["os"])."' OR ('' = '".addslashes($array["os"])."' AND i.os IS NULL))
+				AND (i.distribution = '".addslashes($array["distribution"])."' OR ('' = '".addslashes($array["distribution"])."' AND i.distribution IS NULL))
+				AND (i.version = '".addslashes($array["version"])."' OR ('' = '".addslashes($array["version"])."' AND i.version IS NULL))
+				AND (i.kernel = '".addslashes($array["kernel"])."' OR ('' = '".addslashes($array["kernel"])."' AND i.kernel IS NULL))
+				AND (i.architecture = '".addslashes($array["architecture"])."' OR ('' = '".addslashes($array["architecture"])."' AND i.architecture IS NULL))
+				AND (i.other_fw = '".addslashes($array["other_fw"])."' OR ('' = '".addslashes($array["other_fw"])."' AND i.other_fw IS NULL))
+				AND (i.binary_link = '".addslashes($array["binary_link"])."' OR ('' = '".addslashes($array["binary_link"])."' AND i.binary_link IS NULL))
+				AND (i.source_link = '".addslashes($array["source_link"])."' OR ('' = '".addslashes($array["source_link"])."' AND i.source_link IS NULL))";
 		$result = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($query)->fetch(PDO::FETCH_ASSOC);
 
 		if(!empty($result))
