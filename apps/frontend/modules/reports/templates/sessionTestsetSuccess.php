@@ -81,8 +81,8 @@
 					<li><a href="#report_summaries" onclick="hideShow('report_summaries_link', 'report_summaries_content', 1);" title="Report Information">Report Information</a></li>
 					<ol>
 						<li><a href="#test_objective" onclick="hideShow('report_summaries_link', 'report_summaries_content', 1); hideShow('test_objective_link', 'test_objective_content', 1);" title="Test Objective">Test Objective</a></li>
-						<li><a href="#build_image" onclick="hideShow('report_summaries_link', 'report_summaries_content', 1); hideShow('build_image_link', 'build_image_content', 1);" title="Build (image)">Build (image)</a></li>
 						<li><a href="#environment" onclick="hideShow('report_summaries_link', 'report_summaries_content', 1); hideShow('environment_link', 'environment_content', 1);" title="Test Environment">Test Environment</a></li>
+						<li><a href="#build_image" onclick="hideShow('report_summaries_link', 'report_summaries_content', 1); hideShow('build_image_link', 'build_image_content', 1);" title="Build (image)">Build (image)</a></li>
 						<li><a href="#notes_summary" onclick="hideShow('report_summaries_link', 'report_summaries_content', 1); hideShow('notes_summary_link', 'notes_summary_content', 1);" title="Environment Summary">Environment Summary</a></li>
 						<li><a href="#qa_summary" onclick="hideShow('report_summaries_link', 'report_summaries_content', 1); hideShow('qa_summary_link', 'qa_summary_content', 1);" title="Quality Summary">Quality Summary</a></li>
 						<li><a href="#issue_summary" onclick="hideShow('report_summaries_link', 'report_summaries_content', 1); hideShow('issue_summary_link', 'issue_summary_content', 1);" title="Issue Summary">Issue Summary</a></li>
