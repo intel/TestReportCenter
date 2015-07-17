@@ -10,9 +10,9 @@
 	$totalResultsNotRun = $currentSummaryNumbers["not_run"];
 	$totalTestResults = $currentSummaryNumbers["total"];
 
-	$runRate = round(($totalResultsPassed + $totalResultsFailed) / $totalTestResults * 100);
-	$totalPassRate = round($totalResultsPassed / $totalTestResults * 100);
-	$executedPassRate = ($totalResultsPassed + $totalResultsFailed) > 0 ? round($totalResultsPassed / ($totalResultsPassed + $totalResultsFailed) * 100) : 0;
+	$runRate = round(($totalResultsPassed + $totalResultsFailed) / $totalTestResults * 100, 2);
+	$totalPassRate = round($totalResultsPassed / $totalTestResults * 100, 2);
+	$executedPassRate = ($totalResultsPassed + $totalResultsFailed) > 0 ? round($totalResultsPassed / ($totalResultsPassed + $totalResultsFailed) * 100, 2) : 0;
 
 	if(count($previousSummaryNumbers) >= 1)
 	{
@@ -23,9 +23,9 @@
 		$previousTotalResultsNotRun = $previousSummaryNumbers[0]["not_run"];
 		$previousTotalTestResults = $previousSummaryNumbers[0]["total"];
 
-		$previousRunRate = round(($previousTotalResultsPassed + $previousTotalResultsFailed) / $previousTotalTestResults * 100);
-		$previousTotalPassRate = round($previousTotalResultsPassed / $previousTotalTestResults * 100);
-		$previousExecutedPassRate = ($previousTotalResultsPassed + $previousTotalResultsFailed > 0) ? round($previousTotalResultsPassed / ($previousTotalResultsPassed + $previousTotalResultsFailed) * 100) : 0;
+		$previousRunRate = round(($previousTotalResultsPassed + $previousTotalResultsFailed) / $previousTotalTestResults * 100, 2);
+		$previousTotalPassRate = round($previousTotalResultsPassed / $previousTotalTestResults * 100, 2);
+		$previousExecutedPassRate = ($previousTotalResultsPassed + $previousTotalResultsFailed > 0) ? round($previousTotalResultsPassed / ($previousTotalResultsPassed + $previousTotalResultsFailed) * 100, 2) : 0;
 	}
 	else
 	{
@@ -344,7 +344,7 @@
 									<td>Run rate</td>
 									<td><strong><?php echo $runRate; ?>%</strong></td>
 									<?php if(isset($previousSession)): ?>
-									<td class="<?php echo getArrow($runRate-$previousRunRate); ?>"><em><?php echo (($runRate-$previousRunRate) >= 0 ? "+" : "").($runRate - $previousRunRate); ?>%</em></td>
+									<td class="<?php echo getArrow($runRate-$previousRunRate); ?>"><em><?php echo (($runRate-$previousRunRate) >= 0 ? "+" : "").round($runRate - $previousRunRate, 2); ?>%</em></td>
 									<?php else: ?>
 									<td class="unchanged"></td>
 									<?php endif; ?>
@@ -353,7 +353,7 @@
 									<td>Pass rate of total</td>
 									<td><strong><?php echo $totalPassRate; ?>%</strong></td>
 									<?php if(isset($previousSession)): ?>
-									<td class="<?php echo getArrow($totalPassRate-$previousTotalPassRate); ?>"><em><?php echo (($totalPassRate-$previousTotalPassRate) >= 0 ? "+" : "").($totalPassRate - $previousTotalPassRate); ?>%</em></td>
+									<td class="<?php echo getArrow($totalPassRate-$previousTotalPassRate); ?>"><em><?php echo (($totalPassRate-$previousTotalPassRate) >= 0 ? "+" : "").round($totalPassRate - $previousTotalPassRate, 2); ?>%</em></td>
 									<?php else: ?>
 									<td class="unchanged"></td>
 									<?php endif; ?>
@@ -362,7 +362,7 @@
 									<td>Pass rate of executed</td>
 									<td><strong><?php echo $executedPassRate; ?>%</strong></td>
 									<?php if(isset($previousSession)): ?>
-									<td class="<?php echo getArrow($executedPassRate-$previousExecutedPassRate); ?>"><em><?php echo (($executedPassRate-$previousExecutedPassRate) >= 0 ? "+" : "").($executedPassRate - $previousExecutedPassRate); ?>%</em></td>
+									<td class="<?php echo getArrow($executedPassRate-$previousExecutedPassRate); ?>"><em><?php echo (($executedPassRate-$previousExecutedPassRate) >= 0 ? "+" : "").round($executedPassRate - $previousExecutedPassRate, 2); ?>%</em></td>
 									<?php else: ?>
 									<td class="unchanged"></td>
 									<?php endif; ?>
@@ -372,7 +372,7 @@
 										<td>NFT index</td>
 										<td><strong><?php echo $nftIndex; ?>%</strong></td>
 										<?php if(isset($previousNftIndex)): ?>
-										<td class="<?php echo getArrow($nftIndex-$previousNftIndex); ?>"><em><?php echo (($nftIndex-$previousNftIndex) >= 0 ? "+" : "").($nftIndex - $previousNftIndex); ?>%</em></td>
+										<td class="<?php echo getArrow($nftIndex-$previousNftIndex); ?>"><em><?php echo (($nftIndex-$previousNftIndex) >= 0 ? "+" : "").round($nftIndex - $previousNftIndex, 2); ?>%</em></td>
 										<?php else: ?>
 										<td class="unchanged"></td>
 										<?php endif; ?>
