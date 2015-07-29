@@ -1007,16 +1007,16 @@ class Import
 						else
 						{
 							$testResult = new TestResult();
-							$testResult->setName($case_id);
+							$testResult->setName(stripslashes($case_id));
 							$testResult->setTestSessionId($test_session_id);
 						}
 
 						$testResult->setDecisionCriteriaId($decision_criteria_id);
-						$testResult->setComplement($test_case);
-						$testResult->setComment($comment);
+						$testResult->setComplement(stripslashes($test_case));
+						$testResult->setComment(stripslashes($comment));
 						$testResult->setStatus($resultStatus);
 						$testResult->setExecutionTime($executionTime);
-						$testResult->setBugs($bugs);
+						$testResult->setBugs(stripslashes($bugs));
 						$testResult->save($conn);
 
 						// Retrieve test_result id created
@@ -1029,7 +1029,7 @@ class Import
 						if (!$test_result_exists_flag)
 						{
 							$complementaryToolRelation = new ComplementaryToolRelation();
-							$complementaryToolRelation->setLabel($feature);
+							$complementaryToolRelation->setLabel(stripslashes($feature));
 							$complementaryToolRelation->setTableNameId($table_name_test_result_id);
 							$complementaryToolRelation->setTableEntryId($test_result_id);
 							$complementaryToolRelation->setCategory($category);
@@ -1150,16 +1150,16 @@ class Import
 						else
 						{
 							$testResult = new TestResult();
-							$testResult->setName($case_id);
+							$testResult->setName(stripslashes($case_id));
 							$testResult->setTestSessionId($test_session_id);
 						}
 
 						$testResult->setDecisionCriteriaId($decision_criteria_id);
-						$testResult->setComplement($test_case);
-						$testResult->setComment($comment);
+						$testResult->setComplement(stripslashes($test_case));
+						$testResult->setComment(stripslashes($comment));
 						$testResult->setStatus($status);
 						$testResult->setExecutionTime($executionTime);
-						$testResult->setBugs($bugs);
+						$testResult->setBugs(stripslashes($bugs));
 						$testResult->save($conn);
 
 						// Retrieve test_result id created
@@ -1172,7 +1172,7 @@ class Import
 						if (!$test_result_exists_flag)
 						{
 							$complementaryToolRelation = new ComplementaryToolRelation();
-							$complementaryToolRelation->setLabel($feature);
+							$complementaryToolRelation->setLabel(stripslashes($feature));
 							$complementaryToolRelation->setTableNameId($table_name_test_result_id);
 							$complementaryToolRelation->setTableEntryId($test_result_id);
 							$complementaryToolRelation->setCategory($category);
@@ -1295,16 +1295,16 @@ class Import
 						else
 						{
 							$testResult = new TestResult();
-							$testResult->setName($case_id);
+							$testResult->setName(stripslashes($case_id));
 							$testResult->setTestSessionId($test_session_id);
 						}
 
 						$testResult->setDecisionCriteriaId($decision_criteria_id);
-						$testResult->setComplement($test_case);
-						$testResult->setComment($comment);
+						$testResult->setComplement(stripslashes($test_case));
+						$testResult->setComment(stripslashes($comment));
 						$testResult->setStatus($status);
 						$testResult->setExecutionTime($executionTime);
-						$testResult->setBugs($bugs);
+						$testResult->setBugs(stripslashes($bugs));
 						$testResult->save($conn);
 
 						// Retrieve test_result id created
@@ -1317,7 +1317,7 @@ class Import
 						if (!$test_result_exists_flag)
 						{
 							$complementaryToolRelation = new ComplementaryToolRelation();
-							$complementaryToolRelation->setLabel($feature);
+							$complementaryToolRelation->setLabel(stripslashes($feature));
 							$complementaryToolRelation->setTableNameId($table_name_test_result_id);
 							$complementaryToolRelation->setTableEntryId($test_result_id);
 							$complementaryToolRelation->setCategory($category);
@@ -1487,16 +1487,16 @@ class Import
 						else
 						{
 							$testResult = new TestResult();
-							$testResult->setName($case_id);
+							$testResult->setName(stripslashes($case_id));
 							$testResult->setTestSessionId($test_session_id);
 						}
 
 						$testResult->setDecisionCriteriaId($decision_criteria_id);
-						$testResult->setComplement($test_case);
-						$testResult->setComment($comment);
+						$testResult->setComplement(stripslashes($test_case));
+						$testResult->setComment(stripslashes($comment));
 						$testResult->setStatus($status);
 						$testResult->setExecutionTime($executionTime);
-						$testResult->setBugs($bugs);
+						$testResult->setBugs(stripslashes($bugs));
 						$testResult->save($conn);
 
 						// Retrieve test_result id created
@@ -1509,7 +1509,7 @@ class Import
 						if (!$test_result_exists_flag)
 						{
 							$complementaryToolRelation = new ComplementaryToolRelation();
-							$complementaryToolRelation->setLabel($feature);
+							$complementaryToolRelation->setLabel(stripslashes($feature));
 							$complementaryToolRelation->setTableNameId($table_name_test_result_id);
 							$complementaryToolRelation->setTableEntryId($test_result_id);
 							$complementaryToolRelation->setCategory($category);
@@ -1801,15 +1801,15 @@ class Import
 						else
 						{
 							$testResult = new TestResult();
-							$testResult->setName($case_id);
+							$testResult->setName(stripslashes($case_id));
 							$testResult->setTestSessionId($test_session_id);
 						}
 
 						$testResult->setDecisionCriteriaId($decision_criteria_id);
-						$testResult->setComplement($test_case);
+						$testResult->setComplement(stripslashes($test_case));
 						$testResult->setStatus($resultStatus);
 						$testResult->setExecutionTime($executionTime);
-						$testResult->setBugs($bugs);
+						$testResult->setBugs(stripslashes($bugs));
 						$testResult->setComment($notes);
 						$testResult->save($conn);
 
@@ -1823,7 +1823,7 @@ class Import
 						if (!$test_result_exists_flag)
 						{
 							$complementaryToolRelation = new ComplementaryToolRelation();
-							$complementaryToolRelation->setLabel($feature);
+							$complementaryToolRelation->setLabel(stripslashes($feature));
 							$complementaryToolRelation->setTableNameId($table_name_test_result_id);
 							$complementaryToolRelation->setTableEntryId($test_result_id);
 							$complementaryToolRelation->setCategory($category);
@@ -1926,13 +1926,13 @@ class Import
 			// For each element into test_result table
 			foreach ($testResults as $testResult)
 			{
-				$case_id = preg_replace('#(")#','\"',$testResult['name']);
-				$test_case = preg_replace('#(")#','\"',$testResult['complement']);
-				$comment = preg_replace('#(")#','\"',$testResult['comment']);
-				$test_result_id = preg_replace('#(")#','\"',$testResult['id']);
-				$duration = preg_replace('#(")#','\"',$testResult['execution_time']);
-				$bugs = preg_replace('#(")#','\"',$testResult['bugs']);
-				$decision_criteria_id = preg_replace('#(")#','\"',$testResult['decision_criteria_id']);
+				$case_id = addslashes($testResult['name']);
+				$test_case = addslashes($testResult['complement']);
+				$comment = addslashes($testResult['comment']);
+				$test_result_id = addslashes($testResult['id']);
+				$duration = addslashes($testResult['execution_time']);
+				$bugs = addslashes($testResult['bugs']);
+				$decision_criteria_id = addslashes($testResult['decision_criteria_id']);
 
 				// Retrieve label (feature) from complementary_tool_relation table
 				$query = "SELECT ctr.label
@@ -1941,7 +1941,7 @@ class Import
 										AND ctr.table_entry_id = ".$test_result_id;
 				$complementaryToolRelation = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($query)->fetch(PDO::FETCH_ASSOC);
 
-				$feature = (empty($complementaryToolRelation)) ? "" : preg_replace('#(")#','\"',$complementaryToolRelation['label']);
+				$feature = (empty($complementaryToolRelation)) ? "" : addslashes($complementaryToolRelation['label']);
 
 				// Retrieve datas from measure table
 				$query = "SELECT meas.value, meas.unit, meas.description, meas.category
@@ -1958,16 +1958,16 @@ class Import
 				foreach ($measures as $measure)
 				{
 					if ($measure['category'] == 1)
-						$value = preg_replace('#(")#','\"',$measure['value']);
+						$value = addslashes($measure['value']);
 					else if ($measure['category'] == 2)
-						$target = preg_replace('#(")#','\"',$measure['value']);
+						$target = addslashes($measure['value']);
 					else if ($measure['category'] == 3)
-						$failure = preg_replace('#(")#','\"',$measure['value']);
+						$failure = addslashes($measure['value']);
 					else
 						die ("Category error into Measure table");
 
-					$unit = preg_replace('#(")#','\"',$measure['unit']);
-					$measurement_name = preg_replace('#(")#','\"',$measure['description']);
+					$unit = addslashes($measure['unit']);
+					$measurement_name = addslashes($measure['description']);
 				}
 
 				if($decision_criteria_id == -1)
@@ -2064,14 +2064,14 @@ class Import
 					// If test_result started_at date is not initialized, then it gets test_session created_at date
 					$temp_execution_date = (($testResult['started_at'] == "0000-00-00 00:00:00") OR ($testResult['started_at'] == "1970-01-01 00:00:00")) ? $testSessionCreatedAt : $testResult['started_at'];
 
-					$case_id = preg_replace('#(")#','\"',$testResult['name']);
-					$test_case = preg_replace('#(")#','\"',$testResult['complement']);
-					$comment = preg_replace('#(")#','\"',$testResult['comment']);
-					$test_result_id = preg_replace('#(")#','\"',$testResult['id']);
-					$decision_criteria_id = preg_replace('#(")#','\"',$testResult['decision_criteria_id']);
-					$duration = preg_replace('#(")#','\"',$testResult['execution_time']);
-					$bugs = preg_replace('#(")#','\"',$testResult['bugs']);
-					$test_execution_date = preg_replace('#(")#','\"',$temp_execution_date);
+					$case_id = addslashes($testResult['name']);
+					$test_case = addslashes($testResult['complement']);
+					$comment = addslashes($testResult['comment']);
+					$test_result_id = addslashes($testResult['id']);
+					$decision_criteria_id = addslashes($testResult['decision_criteria_id']);
+					$duration = addslashes($testResult['execution_time']);
+					$bugs = addslashes($testResult['bugs']);
+					$test_execution_date = addslashes($temp_execution_date);
 
 					// Retrieve label (feature) from complementary_tool_relation table
 					$query = "SELECT ctr.label
@@ -2080,7 +2080,7 @@ class Import
 											AND ctr.table_entry_id = ".$test_result_id;
 					$complementaryToolRelation = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($query)->fetch(PDO::FETCH_ASSOC);
 
-					$feature = (empty($complementaryToolRelation)) ? "" : preg_replace('#(")#','\"',$complementaryToolRelation['label']);
+					$feature = (empty($complementaryToolRelation)) ? "" : addslashes($complementaryToolRelation['label']);
 
 					// Retrieve datas from measure table
 					$query = "SELECT meas.value, meas.unit, meas.description, meas.category
@@ -2097,16 +2097,16 @@ class Import
 					foreach ($measures as $measure)
 					{
 						if ($measure['category'] == 1)
-							$value = preg_replace('#(")#','\"',$measure['value']);
+							$value = addslashes($measure['value']);
 						else if ($measure['category'] == 2)
-							$target = preg_replace('#(")#','\"',$measure['value']);
+							$target = addslashes($measure['value']);
 						else if ($measure['category'] == 3)
-							$failure = preg_replace('#(")#','\"',$measure['value']);
+							$failure = addslashes($measure['value']);
 						else
 							die ("Category error into Measure table");
 
-						$unit = preg_replace('#(")#','\"',$measure['unit']);
-						$measurement_name = preg_replace('#(")#','\"',$measure['description']);
+						$unit = addslashes($measure['unit']);
+						$measurement_name = addslashes($measure['description']);
 					}
 
 					if($decision_criteria_id == -1)
