@@ -1918,7 +1918,7 @@ class Import
 			$table_name_id = $result['id'];
 
 			// Retrieve datas from test_result table
-			$query = "SELECT tr.id, tr.name, tr.complement, tr.decision_criteria_id, tr.status, tr.bugs, tr.comment
+			$query = "SELECT tr.id, tr.name, tr.complement, tr.decision_criteria_id, tr.status, tr.bugs, tr.comment, tr.execution_time, tr.started_at
 					FROM ".$qa_generic.".test_result tr
 							WHERE tr.test_session_id = ".$test_session_id;
 			$testResults = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($query)->fetchAll(PDO::FETCH_ASSOC);
@@ -1929,10 +1929,10 @@ class Import
 				$case_id = addslashes($testResult['name']);
 				$test_case = addslashes($testResult['complement']);
 				$comment = addslashes($testResult['comment']);
-				$test_result_id = addslashes($testResult['id']);
-				$duration = addslashes($testResult['execution_time']);
+				$test_result_id = ($testResult['id']);
+				$duration = ($testResult['execution_time']);
 				$bugs = addslashes($testResult['bugs']);
-				$decision_criteria_id = addslashes($testResult['decision_criteria_id']);
+				$decision_criteria_id = ($testResult['decision_criteria_id']);
 
 				// Retrieve label (feature) from complementary_tool_relation table
 				$query = "SELECT ctr.label
