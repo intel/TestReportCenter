@@ -1025,8 +1025,8 @@ class restActions extends sfActions
 			// Get last test sessions relying on begin_time
 			$query = "SELECT ts.id, ts.build_id, ts.testset, ts.name, ts.status, ts.created_at, ts.updated_at, ts.qa_summary
 				FROM " . $qa_generic . ".test_session ts
-				WHERE ts.updated_at >= '".$begin_time."'
-				ORDER BY ts.updated_at ASC
+				WHERE ts.created_at >= '".$begin_time."'
+				ORDER BY ts.created_at ASC
 				LIMIT 0," . $limit_amount;
 		}
 		else
@@ -1034,7 +1034,7 @@ class restActions extends sfActions
 			// Get last test sessions
 			$query = "SELECT ts.id, ts.build_id, ts.testset, ts.name, ts.status, ts.created_at, ts.updated_at, ts.qa_summary
 				FROM " . $qa_generic . ".test_session ts
-				ORDER BY ts.updated_at DESC
+				ORDER BY ts.created_at DESC
 				LIMIT 0," . $limit_amount;
 		}
 		$testSessions = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($query)->fetchAll(PDO::FETCH_ASSOC);
