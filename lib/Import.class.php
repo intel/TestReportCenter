@@ -1237,7 +1237,7 @@ class Import
 						$test_case = (empty($data_tab[$ref_tab[2]])) ? " " : $data_tab[$ref_tab[2]];
 						$comment = (empty($data_tab[$ref_tab[3]])) ? " " : $data_tab[$ref_tab[3]];
 
-						if (!(($data_tab[$ref_tab[4]] == "1") OR ($data_tab[$ref_tab[5]] == "1") OR ($data_tab[$ref_tab[6]] == "1")) OR ($data_tab[$ref_tab[9]] == "1")) OR ($data_tab[$ref_tab[10]] == "1")))
+						if (!(($data_tab[$ref_tab[4]] == "1") OR ($data_tab[$ref_tab[5]] == "1") OR ($data_tab[$ref_tab[6]] == "1") OR ($data_tab[$ref_tab[9]] == "1") OR ($data_tab[$ref_tab[10]] == "1")))
 							return 2303;
 
 						$pass = (empty($data_tab[$ref_tab[4]])) ? "" : $data_tab[$ref_tab[4]];
@@ -1391,7 +1391,7 @@ class Import
 						if (empty($data_tab[$ref_tab[1]])) return 2402;
 						else $case_id = $data_tab[$ref_tab[1]];
 
-						if (!(($data_tab[$ref_tab[3]] == "1") OR ($data_tab[$ref_tab[4]] == "1") OR ($data_tab[$ref_tab[5]] == "1") OR ($data_tab[$ref_tab[6]] == "1")) OR ($data_tab[$ref_tab[15]] == "1")) OR ($data_tab[$ref_tab[16]] == "1")))
+						if (!(($data_tab[$ref_tab[3]] == "1") OR ($data_tab[$ref_tab[4]] == "1") OR ($data_tab[$ref_tab[5]] == "1") OR ($data_tab[$ref_tab[6]] == "1") OR ($data_tab[$ref_tab[15]] == "1") OR ($data_tab[$ref_tab[16]] == "1")))
 							return 2403;
 
 						$test_case = (empty($data_tab[$ref_tab[2]])) ? " " : $data_tab[$ref_tab[2]];
