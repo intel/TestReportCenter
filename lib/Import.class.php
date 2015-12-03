@@ -1370,6 +1370,10 @@ class Import
 						$ref_tab[13] = $idx;
 					elseif (preg_match("#^ ?Bug.?$#i",$element))
 						$ref_tab[14] = $idx;
+					elseif (preg_match("#^ ?Defer(red)?.?$#i",$element))
+						$ref_tab[15] = $idx;
+					elseif (preg_match("#^ ?Not ?run.?$#i",$element) || preg_match("#^ ?Not_run.?$#i",$element))
+						$ref_tab[16] = $idx;
 					$idx++;
 				}
 
@@ -1387,7 +1391,7 @@ class Import
 						if (empty($data_tab[$ref_tab[1]])) return 2402;
 						else $case_id = $data_tab[$ref_tab[1]];
 
-						if (!(($data_tab[$ref_tab[3]] == "1") OR ($data_tab[$ref_tab[4]] == "1") OR ($data_tab[$ref_tab[5]] == "1") OR ($data_tab[$ref_tab[6]] == "1")))
+						if (!(($data_tab[$ref_tab[3]] == "1") OR ($data_tab[$ref_tab[4]] == "1") OR ($data_tab[$ref_tab[5]] == "1") OR ($data_tab[$ref_tab[6]] == "1")) OR ($data_tab[$ref_tab[15]] == "1")) OR ($data_tab[$ref_tab[16]] == "1")))
 							return 2403;
 
 						$test_case = (empty($data_tab[$ref_tab[2]])) ? " " : $data_tab[$ref_tab[2]];
