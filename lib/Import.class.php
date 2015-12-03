@@ -1906,7 +1906,7 @@ class Import
 		if($csv_export_file)
 		{
 			// Fill export_file.csv
-			fputs($csv_export_file, "Feature,Case Id,Test Case,Pass,Fail,N/A,Measured,Comment,Measurement Name,Value,Unit,Target,Failure,Build Id,Duration,Bug\n");
+			fputs($csv_export_file, "Feature,Case Id,Test Case,Pass,Fail,N/A,Measured,Deferred,Not Run,Comment,Measurement Name,Value,Unit,Target,Failure,Duration,Bug\n");
 
 			// Retrieve build_id from test_session table
 			$testSessionObject = Doctrine_Core::getTable("TestSession")->findOneById($test_session_id);
@@ -1971,13 +1971,17 @@ class Import
 				}
 
 				if($decision_criteria_id == -1)
-					fputs($csv_export_file, $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",1,,,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $testSessionBuildId . "," . $duration . "," . $bugs . "\n" );
+					fputs($csv_export_file, $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",1,,,,,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . ","  . $duration . "," . $bugs . "\n" );
 				else if($decision_criteria_id == -2)
-					fputs($csv_export_file, $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,1,,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $testSessionBuildId . "," . $duration . "," . $bugs . "\n" );
+					fputs($csv_export_file, $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,1,,,,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $duration . "," . $bugs . "\n" );
 				else if($decision_criteria_id == -3)
-					fputs($csv_export_file, $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,,1,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $testSessionBuildId . "," . $duration . "," . $bugs . "\n" );
+					fputs($csv_export_file, $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,,1,,,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $duration . "," . $bugs . "\n" );
+				else if($decision_criteria_id == -4)
+					fputs($csv_export_file, $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,,,,1,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $duration . "," . $bugs . "\n" );
+				else if($decision_criteria_id == -5)
+					fputs($csv_export_file, $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,,,,,1,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $duration . "," . $bugs . "\n" );
 				else
-					fputs($csv_export_file, $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,,,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $testSessionBuildId . "," . $duration . "," . $bugs . "\n" );
+					fputs($csv_export_file, $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,,,1,,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $duration . "," . $bugs . "\n" );
 			}
 
 			fclose($csv_export_file);
