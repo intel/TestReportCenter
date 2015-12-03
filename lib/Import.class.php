@@ -1695,7 +1695,7 @@ class Import
 
 						$test_case = (empty($data_tab[$ref_tab[4]])) ? " " : $data_tab[$ref_tab[4]];
 						$comment = (empty($data_tab[$ref_tab[5]])) ? "" : $data_tab[$ref_tab[5]];
-						// $bug = (empty($data_tab[$ref_tab[6]])) ? "" : $data_tab[$ref_tab[6]];
+						$bug = (empty($data_tab[$ref_tab[6]])) ? "" : $data_tab[$ref_tab[6]];
 						$step_actual_result = (empty($data_tab[$ref_tab[13]])) ? "" : $data_tab[$ref_tab[13]];
 						$step_notes = (empty($data_tab[$ref_tab[16]])) ? "" : $data_tab[$ref_tab[16]];
 						$measurement_name = (empty($data_tab[$ref_tab[8]])) ? "" : $data_tab[$ref_tab[8]];
