@@ -1026,6 +1026,7 @@ class restActions extends sfActions
 			$query = "SELECT ts.id, ts.build_id, ts.testset, ts.name, ts.status, ts.created_at, ts.updated_at, ts.qa_summary
 				FROM " . $qa_generic . ".test_session ts
 				WHERE ts.created_at >= '".$begin_time."'
+				AND ts.published = 1
 				ORDER BY ts.created_at ASC
 				LIMIT 0," . $limit_amount;
 		}
@@ -1034,6 +1035,7 @@ class restActions extends sfActions
 			// Get last test sessions
 			$query = "SELECT ts.id, ts.build_id, ts.testset, ts.name, ts.status, ts.created_at, ts.updated_at, ts.qa_summary
 				FROM " . $qa_generic . ".test_session ts
+				WHERE ts.published = 1
 				ORDER BY ts.created_at DESC
 				LIMIT 0," . $limit_amount;
 		}
