@@ -13,4 +13,4 @@
 !/web/uploads/example.csv
 /data/sql/*
 /test/*
-
+/data/fixtures/fixtures.yml
