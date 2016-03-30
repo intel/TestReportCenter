@@ -2033,32 +2033,27 @@ class Import
 				$configurationId = $result['configuration_id'];
 				$buildId = $result['build_id'];
 
-				if ($configurationId != $lastConfigurationId || $buildId != $lastBuildId)
-				{
-					// Retrieve project name, product name, test environment name and image name
-					$query = "SELECT ts.build_id test_session_build_id, ts.testset test_session_testset, ts.name test_session_name, ts.created_at test_session_created_at, i.name image_name, te.name test_environment_name, p.name project_name, pt.name product_name, (SELECT sfgu.first_name FROM ".$qa_core.".sf_guard_user sfgu WHERE sfgu.id = ts.user_id) AS author_first_name, (SELECT sfgu.last_name FROM ".$qa_core.".sf_guard_user sfgu WHERE sfgu.id = ts.user_id) AS author_last_name, (SELECT sfgu.first_name FROM ".$qa_core.".sf_guard_user sfgu WHERE sfgu.id = ts.editor_id) AS editor_first_name, (SELECT sfgu.last_name FROM ".$qa_core.".sf_guard_user sfgu WHERE sfgu.id = ts.editor_id) AS editor_last_name
-							FROM ".$qa_generic.".test_session ts
-								JOIN ".$qa_generic.".configuration c ON c.id = ts.configuration_id
-								JOIN ".$qa_generic.".image i ON i.id = c.image_id
-								JOIN ".$qa_generic.".test_environment te ON te.id = c.test_environment_id
-								JOIN ".$qa_generic.".project_to_product ptp ON ptp.id = c.project_to_product_id
-								JOIN ".$qa_generic.".project p ON p.id = ptp.project_id
-								JOIN ".$qa_core.".product_type pt ON pt.id = ptp.product_id
-							WHERE ts.id = ".$test_session_id;
-					$configInfo = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($query)->fetch(PDO::FETCH_ASSOC);
-					$projectName = $configInfo['project_name'];
-					$productName = $configInfo['product_name'];
-					$testEnvironmentName = $configInfo['test_environment_name'];
-					$imageName = $configInfo['image_name'];
-					$testSessionBuildId = $configInfo['test_session_build_id'];
-					$testSessionTestset = $configInfo['test_session_testset'];
-					$testSessionName = $configInfo['test_session_name'];
-					$testSessionCreatedAt = $configInfo['test_session_created_at'];
-					$authorName = $configInfo['author_first_name'] . " " . $configInfo['author_last_name'];
-					$editorName = $configInfo['editor_first_name'] . " " . $configInfo['editor_last_name'];
-				}
-				$lastConfigurationId = $configurationId;
-				$lastBuildId = $buildId;
+				// Retrieve project name, product name, test environment name and image name
+				$query = "SELECT ts.build_id test_session_build_id, ts.testset test_session_testset, ts.name test_session_name, ts.created_at test_session_created_at, i.name image_name, te.name test_environment_name, p.name project_name, pt.name product_name, (SELECT sfgu.first_name FROM ".$qa_core.".sf_guard_user sfgu WHERE sfgu.id = ts.user_id) AS author_first_name, (SELECT sfgu.last_name FROM ".$qa_core.".sf_guard_user sfgu WHERE sfgu.id = ts.user_id) AS author_last_name, (SELECT sfgu.first_name FROM ".$qa_core.".sf_guard_user sfgu WHERE sfgu.id = ts.editor_id) AS editor_first_name, (SELECT sfgu.last_name FROM ".$qa_core.".sf_guard_user sfgu WHERE sfgu.id = ts.editor_id) AS editor_last_name
+						FROM ".$qa_generic.".test_session ts
+							JOIN ".$qa_generic.".configuration c ON c.id = ts.configuration_id
+							JOIN ".$qa_generic.".image i ON i.id = c.image_id
+							JOIN ".$qa_generic.".test_environment te ON te.id = c.test_environment_id
+							JOIN ".$qa_generic.".project_to_product ptp ON ptp.id = c.project_to_product_id
+							JOIN ".$qa_generic.".project p ON p.id = ptp.project_id
+							JOIN ".$qa_core.".product_type pt ON pt.id = ptp.product_id
+						WHERE ts.id = ".$test_session_id;
+				$configInfo = Doctrine_Manager::getInstance()->getCurrentConnection()->execute($query)->fetch(PDO::FETCH_ASSOC);
+				$projectName = $configInfo['project_name'];
+				$productName = $configInfo['product_name'];
+				$testEnvironmentName = $configInfo['test_environment_name'];
+				$imageName = $configInfo['image_name'];
+				$testSessionBuildId = $configInfo['test_session_build_id'];
+				$testSessionTestset = $configInfo['test_session_testset'];
+				$testSessionName = $configInfo['test_session_name'];
+				$testSessionCreatedAt = $configInfo['test_session_created_at'];
+				$authorName = $configInfo['author_first_name'] . " " . $configInfo['author_last_name'];
+				$editorName = $configInfo['editor_first_name'] . " " . $configInfo['editor_last_name'];
 
 				// Retrieve datas from test_result table
 				$query = "SELECT tr.id, tr.name, tr.complement, tr.decision_criteria_id, tr.execution_time, tr.status, tr.bugs, tr.comment, tr.started_at
@@ -2117,14 +2112,11 @@ class Import
 						$measurement_name = addslashes($measure['description']);
 					}
 
-					if($decision_criteria_id == -1)
-						fputs($csv_export_file, $test_execution_date . "," . $projectName . "," . $productName . "," . $testSessionTestset . "," . $testEnvironmentName . "," . $testSessionName . "," . $testSessionBuildId . "," . $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",1,,,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $authorName . "," . $editorName . "," . $duration . "," . $bugs . "\n" );
-					else if($decision_criteria_id == -2)
-						fputs($csv_export_file, $test_execution_date . "," . $projectName . "," . $productName . "," . $testSessionTestset . "," . $testEnvironmentName . "," . $testSessionName . "," . $testSessionBuildId . "," . $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,1,,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $authorName . "," . $editorName . "," . $duration . "," . $bugs . "\n" );
-					else if($decision_criteria_id == -3)
-						fputs($csv_export_file, $test_execution_date . "," . $projectName . "," . $productName . "," . $testSessionTestset . "," . $testEnvironmentName . "," . $testSessionName . "," . $testSessionBuildId . "," . $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,,1,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $authorName . "," . $editorName . "," . $duration . "," . $bugs . "\n" );
-					else
-						fputs($csv_export_file, $test_execution_date . "," . $projectName . "," . $productName . "," . $testSessionTestset . "," . $testEnvironmentName . "," . $testSessionName . "," . $testSessionBuildId . "," . $feature . ",\"" . $case_id . "\",\"" . $test_case . "\",,,,,\"" . $comment . "\"," . $measurement_name . "," . $value . "," . $unit . "," . $target . "," . $failure . "," . $authorName . "," . $editorName . "," . $duration . "," . $bugs . "\n" );
+					if($decision_criteria_id == -1) $result_string = "1,,,";
+					else if($decision_criteria_id == -2) $result_string = ",1,,";
+					else if($decision_criteria_id == -3) $result_string = ",,1,";
+					else $result_string = ",,,";
+					fputs($csv_export_file, $test_execution_date.",".$projectName.",".$productName.",".$testSessionTestset.",".$testEnvironmentName.",".$testSessionName.",".$testSessionBuildId.",".$feature.",\"".$case_id."\",\"".$test_case."\",".$result_string.",\"".$comment."\",".$measurement_name.",".$value.",".$unit.",".$target.",".$failure.",".$authorName.",".$editorName.",".$duration.",".$bugs."\n");
 				}
 			}
 			fclose($csv_export_file);
